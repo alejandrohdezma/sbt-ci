@@ -1,0 +1,29 @@
+name: Parse repos and launch PR creation
+
+on:
+  release:
+    types: [published, edited]
+  push:
+    tags-ignore:
+      - '**'
+    paths:
+      - '.repos'
+
+jobs:
+  parse-repos-and-exec-repository-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Execute repository_dispatch for each repo in .repos
+        run: |
+          while read line || [ -n "$line" ]; do
+            curl --verbose -POST \
+              --header "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+              --header "Accept: application/vnd.github.everest-preview+json" \
+              --header "Content-Type: application/json" \
+              https://api.github.com/repos/alejandrohdezma/defaults/dispatches \
+              --data '{"event_type":"auto-update","client_payload":{"repo":"'${line%/*}'/'${line#*/}'"}}'
+          done < .repos
+
+

@@ -1,0 +1,64 @@
+name: Create PR with update in remote repo
+
+on:
+  repository_dispatch:
+    types: [auto-update]
+
+jobs:
+  create-pr-on-remote-repo:
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{github.event.client_payload.repo}}
+    steps:
+      - name: Checkout repository to update
+        uses: actions/checkout@v2
+        with:
+          path: main
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          repository: ${{ env.REPO }}
+      - name: Get latest release
+        uses: octokit/request-action@v2.x
+        id: get_latest_release
+        with:
+          route: GET /repos/:repository/releases/latest
+          repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Parse latest release
+        id: release
+        uses: gr2m/get-json-paths-action@v1.x
+        with:
+          json: ${{ steps.get_latest_release.outputs.data }}
+          body: body
+          tag_name: tag_name
+      - name: Checkout latest tag
+        uses: actions/checkout@v2
+        with:
+          path: defaults
+          ref: ${{ steps.release.outputs.tag_name }}
+      - name: Copy files
+        run: |
+          mkdir -p main/.github/workflows && cp defaults/workflows/* main/.github/workflows
+          mkdir -p main/.github/docs && cp defaults/documentation/* main/docs
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          path: main
+          commit-message: Update workflows and documentation templates to ${{ steps.release.outputs.tag_name }}
+          title: Update workflows and documentation templates to ${{ steps.release.outputs.tag_name }}
+          labels: auto-update
+          branch: auto-update-workflows-docs
+          body: |
+            > ❕This is an automated PR created from a release in [`alejandrohdezma/defaults`](https://github.com/alejandrohdezma/defaults).
+
+            # What has been done in this PR?
+
+            Update Github Actions workflows and documentation templates to ${{ steps.release.outputs.tag_name }}.
+
+            # Included changes
+
+            ${{ steps.release.outputs.body }}
+      - name: Show Pull Request URL
+        if: env.PULL_REQUEST_NUMBER != null
+        run: 'echo "Pull-request created: https://github.com/${{ env.REPO }}/pull/${{ env.PULL_REQUEST_NUMBER }}"'
