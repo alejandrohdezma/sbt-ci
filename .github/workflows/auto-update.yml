@@ -51,7 +51,7 @@ jobs:
           labels: auto-update
           branch: auto-update-workflows-docs
           body: |
-            > ❕This is an automated PR created from a release in [`alejandrohdezma/defaults`](https://github.com/alejandrohdezma/defaults).
+            > ❕This is an automated PR created from a release in [`alejandrohdezma/.github`](https://github.com/alejandrohdezma/.github).
 
             # What has been done in this PR?
 

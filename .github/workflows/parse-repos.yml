@@ -22,7 +22,7 @@ jobs:
               --header "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
               --header "Accept: application/vnd.github.everest-preview+json" \
               --header "Content-Type: application/json" \
-              https://api.github.com/repos/alejandrohdezma/defaults/dispatches \
+              https://api.github.com/repos/alejandrohdezma/.github/dispatches \
               --data '{"event_type":"auto-update","client_payload":{"repo":"'${line%/*}'/'${line#*/}'"}}'
           done < .repos
 
