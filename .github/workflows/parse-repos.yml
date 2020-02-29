@@ -2,7 +2,7 @@ name: Parse repos and launch PR creation
 
 on:
   release:
-    types: [published, edited]
+    types: [published]
   push:
     tags-ignore:
       - '**'
