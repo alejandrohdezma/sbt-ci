@@ -19,7 +19,7 @@ jobs:
         run: |
           while read line || [ -n "$line" ]; do
             curl --verbose -POST \
-              --header "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+              --header "Authorization: token ${{ secrets.ADMIN_GITHUB_TOKEN }}" \
               --header "Accept: application/vnd.github.everest-preview+json" \
               --header "Content-Type: application/json" \
               https://api.github.com/repos/alejandrohdezma/.github/dispatches \
