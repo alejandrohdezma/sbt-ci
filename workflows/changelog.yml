@@ -30,7 +30,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update CHANGELOG.md
           title: 'Update CHANGELOG.md'
-          labels: auto-update
+          labels: auto-changelog
           branch: auto-update-changelog
           body: Update CHANGELOG.md with information from latest release
       - name: Merge Changelog Pull Request
