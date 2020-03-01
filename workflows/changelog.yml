@@ -6,7 +6,10 @@ name: Update changelog
 
 on:
   push:
-    tags: v**
+    tags:
+      - v**
+    branches:
+      - master
 
 jobs:
   changelog:
