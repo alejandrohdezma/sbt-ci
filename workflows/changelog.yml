@@ -33,7 +33,30 @@ jobs:
             --user ${repo%/*} \
             --project ${repo#*/} \
             --token $GITHUB_TOKEN \
-            --exclude-labels "duplicate,question,invalid,wontfix,auto-update,auto-changelog,auto-documentation"
+            --exclude-labels "duplicate,question,invalid,wontfix,auto-update,auto-changelog,auto-documentation" \
+            --configure-sections \
+          '{
+            "breaking": {
+              "prefix": "⚠️ **Breaking changes**",
+              "labels": ["breaking-change"]
+            },
+            "enhancement": {
+              "prefix": "🚀 **Features**",
+              "labels": ["enhancement"]
+            },
+            "documentation": {
+              "prefix": "📘 **Documentation**",
+              "labels": ["documentation"]
+            },
+            "bug": {
+              "prefix": "🐛 **Bug Fixes**",
+              "labels": ["bug"]
+            },
+            "dependency": {
+              "prefix": "📈 **Dependency updates**",
+              "labels": ["dependency-update"]
+            }
+          }'
       - name: Create Changelog Pull Request
         uses: peter-evans/create-pull-request@v2
         with:
