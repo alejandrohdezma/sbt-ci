@@ -41,13 +41,14 @@ jobs:
           mkdir -p main/.github/workflows && cp defaults/workflows/*.yml main/.github/workflows
           mkdir -p main/.github/workflows && cp defaults/workflows/settings/*.yml main/.github
           mkdir -p main/.github/docs && cp defaults/documentation/* main/docs
+          cp -a defaults/root-files/. main
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           path: main
-          commit-message: Update workflows and documentation templates to ${{ steps.release.outputs.tag_name }}
-          title: Update workflows and documentation templates to ${{ steps.release.outputs.tag_name }}
+          commit-message: Update actions, documentation templates and configuration files to ${{ steps.release.outputs.tag_name }}
+          title: Update actions, documentation templates and configuration files to ${{ steps.release.outputs.tag_name }}
           labels: auto-update
           branch: auto-update-workflows-docs
           body: |
@@ -55,7 +56,7 @@ jobs:
 
             # What has been done in this PR?
 
-            Update Github Actions workflows and documentation templates to ${{ steps.release.outputs.tag_name }}.
+            Update Github Actions workflows, documentation templates and configuration files to ${{ steps.release.outputs.tag_name }}.
 
             # Included changes
 
