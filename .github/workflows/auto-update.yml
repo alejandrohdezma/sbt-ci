@@ -40,7 +40,7 @@ jobs:
         run: |
           mkdir -p main/.github/workflows && cp defaults/workflows/*.yml main/.github/workflows
           mkdir -p main/.github/workflows && cp defaults/workflows/settings/*.yml main/.github
-          mkdir -p main/.github/docs && cp defaults/documentation/* main/docs
+          mkdir -p main/docs && cp defaults/documentation/* main/docs
           cp -a defaults/root-files/. main
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
