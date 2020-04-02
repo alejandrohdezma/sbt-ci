@@ -14,8 +14,6 @@ on:
 jobs:
   changelog:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
@@ -32,6 +30,7 @@ jobs:
         run: gem install github_changelog_generator
       - name: Generate changelog
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
         run: |
           github_changelog_generator \
