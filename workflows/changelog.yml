@@ -58,7 +58,7 @@ jobs:
             },
             "dependency": {
               "prefix": "📈 **Dependency updates**",
-              "labels": ["dependency-update"]
+              "labels": ["dependency-update", "scala-steward"]
             }
           }'
       - name: Create Changelog Pull Request
