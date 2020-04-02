@@ -5,6 +5,6 @@ pull_request_rules:
       - status-success=test
     actions:
       merge:
-        method: merge
+        method: squash
       label:
         add: [auto-update]
