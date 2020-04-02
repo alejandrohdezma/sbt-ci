@@ -7,7 +7,7 @@ pull_request_rules:
       merge:
         method: squash
       label:
-        add: [auto-update]
+        add: [scala-steward]
   - name: automatically merge automatic PRs from alejandrohdezma/.github
     conditions:
       - author=alejandrohdezma
