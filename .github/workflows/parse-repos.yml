@@ -7,7 +7,7 @@ on:
     tags-ignore:
       - '**'
     paths:
-      - '.repos'
+      - '**/*.txt'
 
 jobs:
   parse-repos-and-exec-repository-dispatch:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
-      - name: Execute repository_dispatch for each repo in .repos
+      - name: Execute repository_dispatch for each repo in repos.txt
         run: |
           while read line || [ -n "$line" ]; do
             curl --verbose -POST \
@@ -24,6 +24,6 @@ jobs:
               --header "Content-Type: application/json" \
               https://api.github.com/repos/alejandrohdezma/.github/dispatches \
               --data '{"event_type":"auto-update","client_payload":{"repo":"'${line%/*}'/'${line#*/}'"}}'
-          done < .repos
+          done < repos.txt
 
 
