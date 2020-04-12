@@ -43,3 +43,6 @@
 - name: dependency-update
   color: 27d14f
   description: "A dependency version update"
+- name: tests
+  color: 04d1c3
+  description: "Improves or modifies tests"
