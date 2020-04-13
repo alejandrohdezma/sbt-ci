@@ -1,13 +1,13 @@
 name: Parse repos and launch PR creation
 
 on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'repos.txt'
   release:
     types: [published]
-  push:
-    tags-ignore:
-      - '**'
-    paths:
-      - '**/*.txt'
 
 jobs:
   parse-repos-and-exec-repository-dispatch:
