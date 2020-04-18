@@ -64,3 +64,19 @@ jobs:
       - name: Show Pull Request URL
         if: env.PULL_REQUEST_NUMBER != null
         run: 'echo "Pull-request created: https://github.com/${{ env.REPO }}/pull/${{ env.PULL_REQUEST_NUMBER }}"'
+      - name: Spread secrets
+        uses: google/secrets-sync-action@v1.1.3
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          ADMIN_GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+        with:
+          secrets: |
+            ^ADMIN_GITHUB_TOKEN$
+            ^PGP.*
+            ^SONATYPE.*
+          repositories: |
+            ${{ env.REPO }}
+          github_token: ${{ secrets.SPREAD_SECRETS_GITHUB_TOKEN }}
