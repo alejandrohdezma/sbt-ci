@@ -1,8 +1,0 @@
-alejandrohdezma/sbt-codecov
-alejandrohdezma/sbt-github
-alejandrohdezma/sbt-fix
-alejandrohdezma/sensitive-strings
-alejandrohdezma/sbt-mdoc-toc
-alejandrohdezma/sbt-remove-test-from-pom
-alejandrohdezma/sbt-scalafmt-defaults
-alejandrohdezma/sbt-scalafix-defaults
