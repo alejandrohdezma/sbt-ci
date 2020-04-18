@@ -1,4 +1,4 @@
-name: Create PR with update in remote repo
+name: Create PR with update in ${{github.event.client_payload.repo}}
 
 on:
   repository_dispatch:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   create-pr-on-remote-repo:
+    name: Auto-update ${{github.event.client_payload.repo}}
     runs-on: ubuntu-latest
     env:
       REPO: ${{github.event.client_payload.repo}}
