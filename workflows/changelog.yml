@@ -7,8 +7,6 @@ name: Update changelog
 on:
   release:
     types: [published]
-  push:
-    branches: master
 
 jobs:
   changelog:
