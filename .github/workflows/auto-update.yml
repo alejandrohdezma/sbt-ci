@@ -59,20 +59,33 @@ jobs:
           mkdir -p main/.github/workflows && cp defaults/workflows/settings/*.yml main/.github
           mkdir -p main/docs && cp defaults/documentation/* main/docs
           cp -a defaults/root-files/. main
+      - name: Create stash with changes
+        working-directory: main
+        run: |
+          git stash --include-untracked
+          git stash apply || echo "::set-env name=NO_CHANGES::true"
       - name: Setup Scala
+        if: env.NO_CHANGES == null
         uses: olafurpg/setup-scala@v7
       - name: Run checks
+        if: env.NO_CHANGES == null
         working-directory: main
-        run: sbt ci-test || echo "::set-env name=NEEDS_PR::true"
+        run: sbt ci-test -Dskip.coverage=true || echo "::set-env name=NEEDS_PR::true"
+      - name: Reset repository to auto-update changes
+        if: env.NO_CHANGES == null
+        working-directory: main
+        run: |
+          git reset --hard HEAD
+          git stash pop
       - name: Push changes
-        if: env.NEEDS_PR == null
+        if: env.NEEDS_PR == null && env.NO_CHANGES == null
         uses: stefanzweifel/git-auto-commit-action@v4.1.3
         with:
           commit_message: Update files from `.github` to ${{ steps.release.outputs.tag_name }} [skip ci]
           repository: main
           branch: 'master'
       - name: Create Pull Request
-        if: env.NEEDS_PR == 'true'
+        if: env.NEEDS_PR == 'true' && env.NO_CHANGES == null
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
