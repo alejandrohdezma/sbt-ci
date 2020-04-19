@@ -58,19 +58,7 @@ jobs:
               "labels": ["dependency-update", "scala-steward"]
             }
           }'
-      - name: Create Changelog Pull Request
-        uses: peter-evans/create-pull-request@v2
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4.1.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update CHANGELOG.md
-          title: 'Update CHANGELOG.md'
-          labels: auto-changelog
-          branch: auto-update-changelog
-          body: Update CHANGELOG.md with information from latest release
-      - name: Merge Changelog Pull Request
-        if: env.PULL_REQUEST_NUMBER != null
-        uses: juliangruber/merge-pull-request-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ env.PULL_REQUEST_NUMBER }}
-          method: squash
+          commit_message: 'Update CHANGELOG.md'
