@@ -5,11 +5,10 @@
 name: Update changelog
 
 on:
+  release:
+    types: [published]
   push:
-    tags:
-      - v**
-    branches:
-      - master
+    branches: master
 
 jobs:
   changelog:
