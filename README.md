@@ -2,6 +2,9 @@
 
 * [Introduction](#introduction)
 * [What files are spread?](#what-files-are-spread)
+     * [Github Actions workflows](#github-actions-workflows)
+     * [Documentation templates](#documentation-templates)
+     * [Root files](#root-files)
 * [How are files spread?](#how-are-files-spread)
 * [What secrets are spread?](#what-secrets-are-spread)
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
@@ -14,7 +17,7 @@ Contains and spreads default Github Actions workflows, documentation templates, 
 
 ## What files are spread?
 
-<details><summary><strong>Github Actions workflows</strong></summary><p>
+### Github Actions workflows
 
 The Github Actions workflow files are stored under [`workflows`](https://github.com/alejandrohdezma/.github/tree/master/workflows). If any of them need settings, they will live under [`workflows/settings`](https://github.com/alejandrohdezma/.github/tree/master/workflows/settings).
 
@@ -30,9 +33,7 @@ The Github Actions workflow files are stored under [`workflows`](https://github.
 
 > Some of the previous workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
 
-</p></details>
-
-<details><summary><strong>Documentation templates</strong></summary><p>
+### Documentation templates
 
 These documentation templates are expected to be used in conjunction with [mdoc](https://scalameta.org/mdoc/docs/installation.html). Some of them use special `mdocVariables` that can be automatically included by using [sbt-github-mdoc](https://github.com/alejandrohdezma/sbt-github#mdoc-integration) plugin. All of these templates should be compiled and processed into their final files when launching `sbt ci-docs` in the [`docs.yml`](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml) workflow.
 
@@ -44,9 +45,7 @@ These documentation templates are expected to be used in conjunction with [mdoc]
 | [`LICENSE.md`](https://github.com/alejandrohdezma/.github/blob/master/documentation/LICENSE.md)                 | `docs/LICENSE.md`         | `YEAR_RANGE` & `COPYRIGHT_OWNER`             | Default license for the project.                                                                               | [`LICENSE.md`](https://github.com/alejandrohdezma/sbt-fix/blob/master/LICENSE.md)                 |
 | [`NOTICE.md`](https://github.com/alejandrohdezma/.github/blob/master/documentation/NOTICE.md)                   | `docs/NOTICE.md`          | `NAME`, `YEAR_RANGE`, `ORG_NAME` & `LICENSE` | Contains the copyright notices for the organization/owner.                                                     | [`NOTICE.md`](https://github.com/alejandrohdezma/sbt-fix/blob/master/NOTICE.md)                   |
 
-</p></details>
-
-<details><summary><strong>Root files</strong></summary><p>
+### Root files
 
 These files will be copied to the root directory of the remote project:
 
@@ -54,8 +53,6 @@ These files will be copied to the root directory of the remote project:
 |----------------|------------------------------------------------------------------|
 | `.gitignore`   | Typical git ignoring configurations for a Scala project.         |
 | `.mergify.yml` | Configuration for the [Mergify](https://mergify.io/) Github App. |
-
-</p></details>
 
 ## How are files spread?
 
