@@ -5,9 +5,10 @@
 name: Update documentation
 
 on:
+  release:
+    types: [published]
   push:
     branches: master
-    tags: v**
 
 jobs:
   documentation:
