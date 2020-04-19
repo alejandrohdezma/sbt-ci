@@ -11,16 +11,17 @@ on:
 jobs:
   documentation:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout project
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
       - name: Setup Scala
         uses: olafurpg/setup-scala@v7
       - name: Generate documentation
         run: sbt ci-docs
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOWNLOAD_INFO_FROM_GITHUB: true
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4.1.3
