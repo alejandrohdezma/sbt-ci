@@ -2,11 +2,6 @@ name: Auto-update repositories files and secrets
 
 on:
   repository_dispatch:
-  push:
-    branches:
-      - master
-    paths:
-      - '.github/workflows/auto-update.yml'
   release:
     types: [published]
 
