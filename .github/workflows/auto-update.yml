@@ -106,7 +106,7 @@ jobs:
         if: env.PULL_REQUEST_NUMBER != null
         run: 'echo "Pull-request created: https://github.com/${{ matrix.repo }}/pull/${{ env.PULL_REQUEST_NUMBER }}"'
       - name: Spread settings
-        uses: alejandrohdezma/repo-manager@v1
+        uses: alejandrohdezma/repo-manager@master
         with:
           github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           github-repository: ${{ matrix.repo }}
