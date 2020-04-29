@@ -55,6 +55,8 @@ jobs:
           mkdir -p main/docs && cp defaults/documentation/* main/docs
           cp -a defaults/root-files/. main
           rm -f main/.github/workflows/changelog.yml
+          rm -f main/.github/workflows/update-labels.yml
+          rm -f main/.github/labels.yml
       - name: Create stash with changes
         working-directory: main
         run: |
@@ -103,6 +105,12 @@ jobs:
       - name: Show Pull Request URL
         if: env.PULL_REQUEST_NUMBER != null
         run: 'echo "Pull-request created: https://github.com/${{ matrix.repo }}/pull/${{ env.PULL_REQUEST_NUMBER }}"'
+      - name: Spread settings
+        uses: alejandrohdezma/repo-manager@v1
+        with:
+          github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          github-repository: ${{ matrix.repo }}
+          config-file: defaults/.github/settings.yml
       - name: Spread secrets
         uses: google/secrets-sync-action@v1.1.3
         env:

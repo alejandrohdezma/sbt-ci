@@ -1,40 +1,40 @@
-# Default workflow, documentation and root files for scala libraries 
+# Default workflow, documentation, root files and settings for scala libraries 
 
 * [Introduction](#introduction)
-* [What files are spread?](#what-files-are-spread)
+* [What files spread?](#what-files-spread)
      * [Github Actions workflows](#github-actions-workflows)
      * [Documentation templates](#documentation-templates)
      * [Root files](#root-files)
 * [How are files spread?](#how-are-files-spread)
-* [What secrets are spread?](#what-secrets-are-spread)
+* [What settings spread?](#what-settings-spread)
+* [What secrets spread?](#what-secrets-spread)
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
 
-Contains and spreads default Github Actions workflows, documentation templates, configuration files and secrets for [@alejandrohdezma](https://github.com/alejandrohdezma)'s Scala libraries repositories.
+Contains and spreads default Github Actions workflows, documentation templates, configuration files, secrets and repository settings for [@alejandrohdezma](https://github.com/alejandrohdezma)'s Scala libraries repositories.
 
-## What files are spread?
+## What files spread?
 
 ### Github Actions workflows
 
-The Github Actions workflow files are stored under [`workflows`](https://github.com/alejandrohdezma/.github/tree/master/workflows). If any of them need settings, they will live under [`workflows/settings`](https://github.com/alejandrohdezma/.github/tree/master/workflows/settings).
+The Github Actions workflow can be found in the [`workflows`](https://github.com/alejandrohdezma/.github/tree/master/workflows) directory. If any of them need settings, they will live under [`workflows/settings`](https://github.com/alejandrohdezma/.github/tree/master/workflows/settings).
 
 | File                                                                                                        | Copied as...                            | Enabled on...                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |-------------------------------------------------------------------------------------------------------------|-----------------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [ci.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml)                           | `.github/workflows/ci.yml`              | Pushes to master and PRs        | Runs `sbt ci-test` on the project. This task should be added to the project as a command alias containing the necessary steps to compile, check formaters, launch tests and upload coverage (if necessary). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L6).                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [ci.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml)                           | `.github/workflows/ci.yml`              | Pushes to master and PRs        | Runs `sbt ci-test` on the project. This task should be added to the project as a command alias containing the necessary steps to compile, check formatters, launch tests and upload coverage (if necessary). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L6).                                                                                                                                                                                                                                                                                                                                                                                                  |
 | [docs.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml)                       | `.github/workflows/docs.yml`            | Releases                        | Runs `sbt ci-docs` on the project, runs the changelog generation and pushes a commit with the changes. The `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation (re-generate docs files, publish micro-sites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L7). For the generation of the `CHANGELOG.md` file it will use [this configuration](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml#L45-L68). An example of a generated changelog file can be found [here](https://github.com/alejandrohdezma/sbt-fix/blob/master/CHANGELOG.md). |
 | [pr-labeler.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/pr-labeler.yml)           | `.github/workflows/pr-labeler.yml`      | PRs                             | Labels PRs automatically depending on the base branch following [this configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/pr-labeler.yml) (also copied to remote repository as `.github/pr-labeler.yml`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | [release.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release.yml)                 | `.github/workflows/release.yml`         | Releases and pushes to master   | Creates a release of the project by running `sbt ci-publish`. This task should be added to the project as a command alias containing the necessary steps to do a release. An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L8).                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | [release-drafter.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release-drafter.yml) | `.github/workflows/release-drafter.yml` | Pushes to master                | Drafts your next release notes as pull requests are merged into master. Creates categories depending on the PRs labels using [a configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/release-drafter.yml) (also copied to remote repository as `.github/release-drafter.yml`). An example of generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                               |
-| [update-labels.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/update-labels.yml)     | `.github/workflows/update-labels.yml`   | Changes to `.github/labels.yml` | Sets the list of labels available in the repository to the ones declared in the [configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/labels.yml) (also copied to remote repository as `.github/labels.yml`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-> Some of the previous workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
+> Some workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
 
 ### Documentation templates
 
-These documentation templates are expected to be used in conjunction with [mdoc](https://scalameta.org/mdoc/docs/installation.html). Some of them use special `mdocVariables` that can be automatically included by using [sbt-github-mdoc](https://github.com/alejandrohdezma/sbt-github#mdoc-integration) plugin. All of these templates should be compiled and processed into their final files when launching `sbt ci-docs` in the [`docs.yml`](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml) workflow.
+These documentation templates expect to be used in conjunction with [mdoc](https://scalameta.org/mdoc/docs/installation.html). Some of them use special `mdocVariables` that can be automatically included by using [sbt-github-mdoc](https://github.com/alejandrohdezma/sbt-github#mdoc-integration) plugin. All of these templates should be compiled and processed into their final files when launching `sbt ci-docs` in the [`docs.yml`](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml) workflow.
 
 | File                                                                                                            | Copied as...              | Needs `mdocVariables`?                       | Description                                                                                                    | Compiled example                                                                                  |
 |-----------------------------------------------------------------------------------------------------------------|---------------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -55,22 +55,43 @@ These files will be copied to the root directory of the remote project:
 
 ## How are files spread?
 
-After each release of this repository the following steps are run for each repository indicated in [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18):
+After each release of this repository the following steps run for each repository indicated in [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18):
 
 1. The new changes (including new files) are copied to the repository.
 2. `sbt ci-test` is run on the repository.
-    - If the check succeedds a commit with the changes is pushed to the `master` branch.
+    - If the check succeeds a commit with the changes will be pushed to the `master` branch.
     - If it fails a PR with the changes will be created.
     
-> Note: the actual command being run is `sbt ci-test -Dskip.coverage=true` since this build should not try to upload coverage. You can use the presence of this system property to disable coverage upload (if used). This is automatically done if using [Codecov](https://codecov.io/) via [`sbt-codecov`](https://github.com/alejandrohdezma/sbt-codecov)
+> Note: the actual command run is `sbt ci-test -Dskip.coverage=true` since this build should not try to upload coverage. You can use the presence of this system property to disable coverage upload (if used). This is automatically done if using [Codecov](https://codecov.io/) via [`sbt-codecov`](https://github.com/alejandrohdezma/sbt-codecov)
 
-## What secrets are spread?
+## What settings spread?
+
+The following repository settings will be enforced on every repository:
+
+- **Wikis** will be **disabled**.
+- **Branches** will be **deleted after merge** them.
+- The **default branch** will be **master**.
+- **Squash merging** will be **enabled**.
+- **Merge commits** will be **enabled**.
+- **Rebase merging** will be **disabled**.
+
+It will also spread a set of **labels** to be used on issues & pull-requests (detailed [here](https://github.com/alejandrohdezma/.github/blob/master/.github/settings.yml#L26-L74)).
+
+Lastly it will add a branch protection on the **master** branch requiring:
+
+- At least **1** pull request review from a code-owner.
+- Pull-request branches should be **up-to-date** with **master**.
+- Both the [ci.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml) and the [pr-labeler.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/pr-labeler.yml) should pass correctly.
+
+> Admins will be allowed to bypass this protection and merge PRs on any condition.
+
+## What secrets spread?
 
 The following secrets will be spread to every repository:
 
 - `PGP_PASSPHRASE`: The passphrase of the GPG key that will be used to signed artifacts.
 - `PGP_SECRET`: The base64 encoded secret of the GPG key that will be used to signed artifacts.
-- `SONATYPE_PASSWORD`: The password you use to log into [Sonatype](https://oss.sonatype.org/).
+- `SONATYPE_PASSWORD`: The password you will use to log into [Sonatype](https://oss.sonatype.org/).
 - `SONATYPE_USERNAME`: The username you use to log into [Sonatype](https://oss.sonatype.org/).
 - `ADMIN_GITHUB_TOKEN`: A Github token with administrator permissions on the repository. It can be used to automatically merge PRs or other tasks where the default `GITHUB_TOKEN` is not enough.
 
@@ -99,7 +120,7 @@ Go to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.
 
 Adding a new repository to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml) workflow will automatically trigger spreading of the latest repository release & secrets.
 
-Also spreading will be also triggered when a release is created.
+Also, spreading will be also triggered when a release is created.
 
 On the other hand, after updating a secret, you can trigger spreading by executing the following command from your local machine:
 
