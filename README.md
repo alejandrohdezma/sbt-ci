@@ -6,14 +6,15 @@
      * [Documentation templates](#documentation-templates)
      * [Root files](#root-files)
 * [How are files spread?](#how-are-files-spread)
-* [What secrets are spread?](#what-secrets-are-spread)
+* [What settings spread?](#what-settings-spread)
+* [What secrets spread?](#what-secrets-spread)
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
 
-Contains and spreads default Github Actions workflows, documentation templates, configuration files and secrets for [@alejandrohdezma](https://github.com/alejandrohdezma)'s Scala libraries repositories.
+Contains and spreads default Github Actions workflows, documentation templates, configuration files, secrets and repository settings for [@alejandrohdezma](https://github.com/alejandrohdezma)'s Scala libraries repositories.
 
 ## What files are spread?
 
@@ -28,7 +29,6 @@ The Github Actions workflow files are stored under [`workflows`](https://github.
 | [pr-labeler.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/pr-labeler.yml)           | `.github/workflows/pr-labeler.yml`      | PRs                             | Labels PRs automatically depending on the base branch following [this configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/pr-labeler.yml) (also copied to remote repository as `.github/pr-labeler.yml`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | [release.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release.yml)                 | `.github/workflows/release.yml`         | Releases and pushes to master   | Creates a release of the project by running `sbt ci-publish`. This task should be added to the project as a command alias containing the necessary steps to do a release. An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L8).                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | [release-drafter.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release-drafter.yml) | `.github/workflows/release-drafter.yml` | Pushes to master                | Drafts your next release notes as pull requests are merged into master. Creates categories depending on the PRs labels using [a configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/release-drafter.yml) (also copied to remote repository as `.github/release-drafter.yml`). An example of generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                               |
-| [update-labels.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/update-labels.yml)     | `.github/workflows/update-labels.yml`   | Changes to `.github/labels.yml` | Sets the list of labels available in the repository to the ones declared in the [configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/labels.yml) (also copied to remote repository as `.github/labels.yml`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 > Some of the previous workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
 
@@ -64,7 +64,28 @@ After each release of this repository the following steps are run for each repos
     
 > Note: the actual command being run is `sbt ci-test -Dskip.coverage=true` since this build should not try to upload coverage. You can use the presence of this system property to disable coverage upload (if used). This is automatically done if using [Codecov](https://codecov.io/) via [`sbt-codecov`](https://github.com/alejandrohdezma/sbt-codecov)
 
-## What secrets are spread?
+## What settings spread?
+
+The following repository settings will be enforced on every repository:
+
+- **Wikis** will be **disabled**.
+- **Branches** will be **deleted after merge** them.
+- The **default branch** will be **master**.
+- **Squash merging** will be **enabled**.
+- **Merge commits** will be **enabled**.
+- **Rebase merging** will be **disabled**.
+
+It will also spread a set of **labels** to be used on issues & pull-requests (detailed [here](https://github.com/alejandrohdezma/.github/blob/master/.github/settings.yml#L26-L74)).
+
+Lastly it will add a branch protection on the **master** branch requiring:
+
+- At least **1** pull request review from a code-owner.
+- Pull-request branches should be **up-to-date** with **master**.
+- Both the [ci.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml) and the [pr-labeler.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/pr-labeler.yml) should pass correctly.
+
+> Admins will be allowed to bypass this protection and merge PRs on any condition.
+
+## What secrets spread?
 
 The following secrets will be spread to every repository:
 
