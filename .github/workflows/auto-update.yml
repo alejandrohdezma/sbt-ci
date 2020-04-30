@@ -75,6 +75,7 @@ jobs:
         working-directory: main
         run: |
           git reset --hard HEAD
+          git clean -fd
           git stash pop
       - name: Push changes
         if: env.NEEDS_PR == null && env.NO_CHANGES == null
