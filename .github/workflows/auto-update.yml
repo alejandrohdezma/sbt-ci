@@ -56,6 +56,7 @@ jobs:
           cp -a defaults/root-files/. main
           rm -f main/.github/workflows/changelog.yml
           rm -f main/.github/workflows/update-labels.yml
+          rm -f main/.github/workflows/pr-labeler.yml
           rm -f main/.github/labels.yml
       - name: Create stash with changes
         working-directory: main
