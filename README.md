@@ -28,6 +28,7 @@ The Github Actions workflow can be found in the [`workflows`](https://github.com
 | [docs.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml)                       | `.github/workflows/docs.yml`            | Releases                        | Runs `sbt ci-docs` on the project, runs the changelog generation and pushes a commit with the changes. The `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation (re-generate docs files, publish micro-sites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L7). For the generation of the `CHANGELOG.md` file it will use [this configuration](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml#L45-L68). An example of a generated changelog file can be found [here](https://github.com/alejandrohdezma/sbt-fix/blob/master/CHANGELOG.md). |
 | [pr-labeler.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/pr-labeler.yml)           | `.github/workflows/pr-labeler.yml`      | PRs                             | Labels PRs automatically depending on the base branch following [this configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/pr-labeler.yml) (also copied to remote repository as `.github/pr-labeler.yml`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | [release.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release.yml)                 | `.github/workflows/release.yml`         | Releases and pushes to master   | Creates a release of the project by running `sbt ci-publish`. This task should be added to the project as a command alias containing the necessary steps to do a release. An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L8).                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| [scala-steward.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/scala-steward.yml)                 | `.github/workflows/scala-steward.yml`         | Every sunday and `repository-dispatch`   | Launches [Scala Steward](https://github.com/fthomas/scala-steward) on the repository to create PRs for updating dependencies. |
 | [release-drafter.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release-drafter.yml) | `.github/workflows/release-drafter.yml` | Pushes to master                | Drafts your next release notes as pull requests are merged into master. Creates categories depending on the PRs labels using [a configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/release-drafter.yml) (also copied to remote repository as `.github/release-drafter.yml`). An example of generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                               |
 
 > Some workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
@@ -115,6 +116,20 @@ The following secrets will be spread to every repository:
 ## How to add a new repository?
 
 Go to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow and add the repository to the `repo` matrix.
+
+## How to trigger Scala Steward on an specific repository?
+
+Execute the following from your local machine:
+
+```
+curl -d "{\"event_type\": \"scala-steward\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/alejandrohdezma/repository/dispatches"
+```
+
+> Remember to have a valid github token exported as `GITHUB_TOKEN` in your local environment:
+>
+> ```bash
+> export GITHUB_TOKEN="your_github_token"
+> ```
 
 ## How to trigger spreading?
 
