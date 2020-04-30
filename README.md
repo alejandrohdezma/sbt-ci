@@ -51,7 +51,6 @@ These files will be copied to the root directory of the remote project:
 | File           | Description                                                      |
 |----------------|------------------------------------------------------------------|
 | `.gitignore`   | Typical git ignoring configurations for a Scala project.         |
-| `.mergify.yml` | Configuration for the [Mergify](https://mergify.io/) Github App. |
 
 ## How are files spread?
 
