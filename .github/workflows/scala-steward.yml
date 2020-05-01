@@ -1,0 +1,29 @@
+name: Run Scala Steward on the selected repositories
+
+on:
+  repository_dispatch:
+    types: [scala-steward]
+
+jobs:
+  run-scala-steward-on-remote-repo:
+    name: ${{ matrix.repo }}
+    strategy:
+      matrix:
+        repo: [
+          alejandrohdezma/sbt-codecov,
+          alejandrohdezma/sbt-fix,
+          alejandrohdezma/sbt-github,
+          alejandrohdezma/sbt-mdoc-toc,
+          alejandrohdezma/sbt-remove-test-from-pom,
+          alejandrohdezma/sbt-scalafix-defaults,
+          alejandrohdezma/sbt-scalafmt-defaults,
+          alejandrohdezma/sensitive-strings
+        ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Launch Scala Steward
+        uses: alejandrohdezma/scala-steward-action@v1
+        with:
+          github-repository: ${{ matrix.repo }}
+          github-token:   ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          gpg-secret-key: ${{ secrets.GPG_SCALA_STEWARD }}

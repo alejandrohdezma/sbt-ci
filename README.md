@@ -2,14 +2,16 @@
 
 * [Introduction](#introduction)
 * [What files spread?](#what-files-spread)
-     * [Github Actions workflows](#github-actions-workflows)
-     * [Documentation templates](#documentation-templates)
-     * [Root files](#root-files)
+    + [Github Actions workflows](#github-actions-workflows)
+    + [Documentation templates](#documentation-templates)
+    + [Root files](#root-files)
 * [How are files spread?](#how-are-files-spread)
 * [What settings spread?](#what-settings-spread)
 * [What secrets spread?](#what-secrets-spread)
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
+* [How to trigger Scala Steward on all repositories?](#how-to-trigger-scala-steward-on-all-repositories)
+* [How to trigger Scala Steward on an specific repository?](#how-to-trigger-scala-steward-on-a-specific-repository)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
@@ -91,7 +93,7 @@ The following secrets will be spread to every repository:
 - `PGP_PASSPHRASE`: The passphrase of the GPG key that will be used to signed artifacts.
 - `PGP_SECRET`: The base64 encoded secret of the GPG key that will be used to signed artifacts.
 - `SONATYPE_PASSWORD`: The password you will use to log into [Sonatype](https://oss.sonatype.org/).
-- `SONATYPE_USERNAME`: The username you use to log into [Sonatype](https://oss.sonatype.org/).
+- `SONATYPE_USERNAME`: The username you will use to log into [Sonatype](https://oss.sonatype.org/).
 - `ADMIN_GITHUB_TOKEN`: A Github token with administrator permissions on the repository. It can be used to automatically merge PRs or other tasks where the default `GITHUB_TOKEN` is not enough.
 
 > Most of these secrets are meant to be used by [sbt-ci-release](https://github.com/olafurpg/sbt-ci-release).
@@ -113,11 +115,27 @@ The following secrets will be spread to every repository:
 
 ## How to add a new repository?
 
-Go to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow and add the repository to the `repo` matrix.
+Go to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L14) workflow and add the repository to the `repo` matrix.
 
-## How to trigger Scala Steward on an specific repository?
+> If you want to be able to trigger Scala Steward on the repository (along with the other repositories), add it also to the `repo` matrix in [scala-steward](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/scala-steward.yml#L12).
+
+## How to trigger Scala Steward on all repositories?
 
 Execute the following from your local machine:
+
+```
+curl -d "{\"event_type\": \"scala-steward\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/alejandrohdezma/.github/dispatches"
+```
+
+> Remember to have a valid github token exported as `GITHUB_TOKEN` in your local environment:
+>
+> ```bash
+> export GITHUB_TOKEN="your_github_token"
+> ```
+
+## How to trigger Scala Steward on a specific repository?
+
+Execute the following from your local machine (replacing `repository` with your repository name):
 
 ```
 curl -d "{\"event_type\": \"scala-steward\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/alejandrohdezma/repository/dispatches"

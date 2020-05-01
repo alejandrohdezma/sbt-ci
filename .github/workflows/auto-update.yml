@@ -2,6 +2,7 @@ name: Auto-update repositories files and secrets
 
 on:
   repository_dispatch:
+    types: [auto-update]
   release:
     types: [published]
 
