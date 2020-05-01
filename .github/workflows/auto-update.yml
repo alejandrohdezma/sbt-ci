@@ -9,6 +9,7 @@ jobs:
   create-pr-on-remote-repo:
     name: ${{ matrix.repo }}
     strategy:
+      fail-fast: false
       matrix:
         repo: [
           alejandrohdezma/sbt-codecov,
