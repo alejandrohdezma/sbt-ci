@@ -117,7 +117,7 @@ jobs:
           github-repository: ${{ matrix.repo }}
           config-file: defaults/.github/settings.yml
       - name: Spread secrets
-        uses: google/secrets-sync-action@v1.3.1
+        uses: google/secrets-sync-action@v1.4.0
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
