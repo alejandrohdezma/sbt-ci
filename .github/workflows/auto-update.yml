@@ -12,16 +12,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: [
-          alejandrohdezma/sbt-codecov,
-          alejandrohdezma/sbt-fix,
-          alejandrohdezma/sbt-github,
-          alejandrohdezma/sbt-mdoc-toc,
-          alejandrohdezma/sbt-remove-test-from-pom,
-          alejandrohdezma/sbt-scalafix-defaults,
-          alejandrohdezma/sbt-scalafmt-defaults,
-          alejandrohdezma/sensitive-strings
-        ]
+        repo:
+          - alejandrohdezma/sbt-codecov
+          - alejandrohdezma/sbt-fix
+          - alejandrohdezma/sbt-github
+          - alejandrohdezma/sbt-mdoc-toc
+          - alejandrohdezma/sbt-remove-test-from-pom
+          - alejandrohdezma/sbt-scalafix-defaults
+          - alejandrohdezma/sbt-scalafmt-defaults
+          - alejandrohdezma/sensitive-strings
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository to update
