@@ -7,7 +7,7 @@ on:
     types: [published]
 
 jobs:
-  create-pr-on-remote-repo:
+  update-repo:
     name: ${{ matrix.repo }}
     strategy:
       fail-fast: false
