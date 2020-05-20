@@ -10,7 +10,7 @@
 * [What secrets spread?](#what-secrets-spread)
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
-* [Scala Steward](#scala-steward)
+* [Scala Steward](#scala-steward-)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
