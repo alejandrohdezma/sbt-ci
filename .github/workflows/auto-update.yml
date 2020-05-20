@@ -125,12 +125,10 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           ADMIN_GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          GPG_SCALA_STEWARD: ${{ secrets.GPG_SCALA_STEWARD }}
         with:
           secrets: |
             ^ADMIN_GITHUB_TOKEN$
             ^PGP.*
-            ^GPG.*
             ^SONATYPE.*
           repositories: ${{ matrix.repo }}
           github_token: ${{ secrets.SPREAD_SECRETS_GITHUB_TOKEN }}
