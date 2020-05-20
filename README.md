@@ -117,7 +117,7 @@ Go to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.
 
 > If you want to be able to trigger Scala Steward on the repository (along with the other repositories), add it also to the `repo` matrix in [scala-steward](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/scala-steward.yml#L12).
 
-## Scala Steward <img src="https://raw.githubusercontent.com/fthomas/scala-steward/master/data/images/scala-steward-logo-circle-0.png" height=20/>
+## [Scala Steward](https://github.com/fthomas/scala-steward) <img src="https://raw.githubusercontent.com/fthomas/scala-steward/master/data/images/scala-steward-logo-circle-0.png" height=20/>
 
 This repository contains a workflow to launch Scala Steward in all the repositories annotated in the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L14) workflow.
 
