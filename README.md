@@ -10,8 +10,7 @@
 * [What secrets spread?](#what-secrets-spread)
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
-* [How to trigger Scala Steward on all repositories?](#how-to-trigger-scala-steward-on-all-repositories)
-* [How to trigger Scala Steward on an specific repository?](#how-to-trigger-scala-steward-on-a-specific-repository)
+* [Scala Steward](#scala-steward)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
@@ -29,7 +28,6 @@ The Github Actions workflow can be found in the [`workflows`](https://github.com
 | [ci.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml)                           | `.github/workflows/ci.yml`              | Pushes to master and PRs        | Runs `sbt ci-test` on the project. This task should be added to the project as a command alias containing the necessary steps to compile, check formatters, launch tests and upload coverage (if necessary). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L6). Also labels PRs automatically depending on the base branch following [this configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/pr-labeler.yml) (also copied to remote repository as `.github/pr-labeler.yml`). Finally merges `scala-steward` PRs that have succeed.                                                                                                                                                                                                                                                                                                                                                                                                 |
 | [docs.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml)                       | `.github/workflows/docs.yml`            | Releases                        | Runs `sbt ci-docs` on the project, runs the changelog generation and pushes a commit with the changes. The `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation (re-generate docs files, publish micro-sites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L7). For the generation of the `CHANGELOG.md` file it will use [this configuration](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml#L45-L68). An example of a generated changelog file can be found [here](https://github.com/alejandrohdezma/sbt-fix/blob/master/CHANGELOG.md). |
 | [release.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release.yml)                 | `.github/workflows/release.yml`         | Releases and pushes to master   | Creates a release of the project by running `sbt ci-publish`. This task should be added to the project as a command alias containing the necessary steps to do a release. An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L8).                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [scala-steward.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/scala-steward.yml)                 | `.github/workflows/scala-steward.yml`         | Every sunday and `repository-dispatch`   | Launches [Scala Steward](https://github.com/fthomas/scala-steward) on the repository to create PRs for updating dependencies. |
 | [release-drafter.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release-drafter.yml) | `.github/workflows/settings/release-drafter.yml` | Merging pull-requests                | Settings for [Release Drafter](https://github.com/apps/release-drafter). This app drafts your next release notes as pull requests are merged into master. Given current configuration, it creates categories depending on the PRs labels. An example of generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                               |
 
 > Some workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
@@ -119,33 +117,24 @@ Go to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.
 
 > If you want to be able to trigger Scala Steward on the repository (along with the other repositories), add it also to the `repo` matrix in [scala-steward](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/scala-steward.yml#L12).
 
-## How to trigger Scala Steward on all repositories?
+## Scala Steward
 
-Execute the following from your local machine:
+This repository contains a workflow to launch Scala Steward in all the repositories annotated in the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L14) workflow.
 
-```
-curl -d "{\"event_type\": \"scala-steward\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/alejandrohdezma/.github/dispatches"
-```
+This workflow will launch in two conditions:
 
-> Remember to have a valid github token exported as `GITHUB_TOKEN` in your local environment:
->
-> ```bash
-> export GITHUB_TOKEN="your_github_token"
-> ```
+- Automatically on Monday, Wednesday and Friday at 5:00 UTC.
+- Manually from a `repository_dispatch`. For that, execute the following from your local machine:
 
-## How to trigger Scala Steward on a specific repository?
+    ```
+    curl -d "{\"event_type\": \"scala-steward\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/alejandrohdezma/.github/dispatches"
+    ```
 
-Execute the following from your local machine (replacing `repository` with your repository name):
-
-```
-curl -d "{\"event_type\": \"scala-steward\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/alejandrohdezma/repository/dispatches"
-```
-
-> Remember to have a valid github token exported as `GITHUB_TOKEN` in your local environment:
->
-> ```bash
-> export GITHUB_TOKEN="your_github_token"
-> ```
+    > Remember to have a valid github token exported as `GITHUB_TOKEN` in your local environment:
+    >
+    > ```bash
+    > export GITHUB_TOKEN="your_github_token"
+    > ```
 
 ## How to trigger spreading?
 
