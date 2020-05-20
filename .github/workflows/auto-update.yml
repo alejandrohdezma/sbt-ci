@@ -58,6 +58,7 @@ jobs:
           rm -f main/.github/workflows/changelog.yml
           rm -f main/.github/workflows/update-labels.yml
           rm -f main/.github/workflows/pr-labeler.yml
+          rm -f main/.github/workflows/release-drafter.yml
           rm -f main/.github/labels.yml
           rm -f main/.mergify.yml
       - name: Create stash with changes
