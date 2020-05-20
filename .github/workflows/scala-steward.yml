@@ -1,29 +1,32 @@
-name: Run Scala Steward on the selected repositories
+name: Run Scala Steward on the managed repositories
 
 on:
+  schedule:
+    - cron:  '0 5 * * 1,3,5'
   repository_dispatch:
     types: [scala-steward]
 
 jobs:
-  run-scala-steward-on-remote-repo:
-    name: ${{ matrix.repo }}
-    strategy:
-      matrix:
-        repo: [
-          alejandrohdezma/sbt-codecov,
-          alejandrohdezma/sbt-fix,
-          alejandrohdezma/sbt-github,
-          alejandrohdezma/sbt-mdoc-toc,
-          alejandrohdezma/sbt-remove-test-from-pom,
-          alejandrohdezma/sbt-scalafix-defaults,
-          alejandrohdezma/sbt-scalafmt-defaults,
-          alejandrohdezma/sensitive-strings
-        ]
+  run-scala-steward:
+    name: Run Scala Steward
     runs-on: ubuntu-latest
     steps:
-      - name: Launch Scala Steward
-        uses: alejandrohdezma/scala-steward-action@v1
+      - name: Checkouts the project
+        uses: actions/checkout@v2
+      - name: Create repos.md file
+        uses: mikefarah/yq@3.3.0
         with:
-          github-repository: ${{ matrix.repo }}
-          github-token:   ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          gpg-secret-key: ${{ secrets.GPG_SCALA_STEWARD }}
+          cmd: yq read .github/workflows/auto-update.yml jobs.update-repo.strategy.matrix.repo > repos.md
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v2
+        with:
+          git_user_signingkey: true
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.PGP_SECRET }}
+          PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+      - name: Launch Scala Steward
+        uses: alejandrohdezma/scala-steward-action@v2
+        with:
+          repos-file: repos.md
+          github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          sign-commits: true
