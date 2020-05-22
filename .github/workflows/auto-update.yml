@@ -1,4 +1,4 @@
-name: Auto-update repositories files and secrets
+name: Auto-update repositories files, settings and secrets
 
 on:
   repository_dispatch:

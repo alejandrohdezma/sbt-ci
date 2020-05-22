@@ -80,7 +80,7 @@ Lastly it will add a branch protection on the **master** branch requiring:
 
 - At least **1** pull request review from a code-owner.
 - Pull-request branches should be **up-to-date** with **master**.
-- Both the [ci.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml) and the [pr-labeler.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/pr-labeler.yml) should pass correctly.
+- The [ci.yml workflow](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml) should pass correctly.
 
 > Admins will be allowed to bypass this protection and merge PRs on any condition.
 
