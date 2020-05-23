@@ -51,17 +51,12 @@ jobs:
           ref: ${{ steps.release.outputs.tag_name }}
       - name: Copy files
         run: |
-          mkdir -p main/.github/workflows && cp defaults/workflows/*.yml main/.github/workflows
-          mkdir -p main/.github/workflows && cp defaults/workflows/settings/*.yml main/.github
-          mkdir -p main/docs && cp defaults/documentation/* main/docs
+          mkdir -p main/.github/workflows
+          mkdir -p main/docs
+          cp defaults/workflows/*.yml main/.github/workflows
+          cp defaults/workflows/settings/*.yml main/.github
+          cp defaults/documentation/* main/docs
           cp -a defaults/root-files/. main
-          rm -f main/.github/workflows/changelog.yml
-          rm -f main/.github/workflows/update-labels.yml
-          rm -f main/.github/workflows/pr-labeler.yml
-          rm -f main/.github/workflows/release-drafter.yml
-          rm -f main/.github/workflows/scala-steward.yml
-          rm -f main/.github/labels.yml
-          rm -f main/.mergify.yml
       - name: Create stash with changes
         working-directory: main
         run: |
