@@ -11,6 +11,7 @@
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
 * [Scala Steward](#scala-steward-)
+* [Pre/post conditions](#prepost-conditions)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
@@ -135,6 +136,27 @@ This workflow will launch in two conditions:
     > ```bash
     > export GITHUB_TOKEN="your_github_token"
     > ```
+
+## Pre/post conditions
+
+Workflows added by this repository allow executing pre/post conditions before/after `ci-*` commands.
+
+In order to enable them add a yaml file called `actions.yml` to your `.github` folder with the following content:
+
+```yaml
+pre:
+  ci:      echo "Pre-condition for the ci workflow"
+  docs:    echo "Pre-condition for the docs workflow"
+  release: echo "Pre-condition for the release workflow"
+post:
+  ci:      echo "Post-condition for the ci workflow"
+  docs:    echo "Post-condition for the docs workflow"
+  release: echo "Post-condition for the release workflow"
+```
+
+As you can see `pre.ci` will contain the command to execute as a pre-condition in the `ci` workflow (it will be executed before calling `sbt ci-test`). On the other hand `post.release` will contain the command to execute as a post-condition in the `release` workflow (it will be executed after calling `sbt ci-publish`).
+
+> There is no need to add a command for every pre/post condition. You only need to add those that you need. The missing ones will be just ignored (noop).
 
 ## How to trigger spreading?
 
