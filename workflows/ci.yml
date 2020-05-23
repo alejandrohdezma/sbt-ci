@@ -23,6 +23,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Scala
         uses: olafurpg/setup-scala@v7
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
       - name: Run checks
         run: sbt ci-test
       - name: Automerge Scala Steward PRs

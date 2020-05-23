@@ -22,10 +22,8 @@ jobs:
         run: git fetch --tags
       - name: Setup Scala
         uses: olafurpg/setup-scala@v7
-      - name: Setup ruby
+      - name: Setup Ruby
         uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
       - name: Setup github-changelog-generator
         run: gem install github_changelog_generator -v 1.15.0
       - name: Generate documentation

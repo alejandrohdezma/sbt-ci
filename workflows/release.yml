@@ -23,6 +23,8 @@ jobs:
         run: git fetch --tags
       - name: Setup Scala
         uses: olafurpg/setup-scala@v7
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
       - name: Setup GPG
         uses: olafurpg/setup-gpg@v2
       - name: Release new version
