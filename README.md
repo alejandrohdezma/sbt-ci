@@ -3,6 +3,7 @@
 * [Introduction](#introduction)
 * [What files spread?](#what-files-spread)
     + [Github Actions workflows](#github-actions-workflows)
+        - [Pre/post conditions in workflows](#prepost-conditions-in-workflows)
     + [Documentation templates](#documentation-templates)
     + [Root files](#root-files)
 * [How are files spread?](#how-are-files-spread)
@@ -11,7 +12,6 @@
 * [How to spread a new secret?](#how-to-spread-a-new-secret)
 * [How to add a new repository?](#how-to-add-a-new-repository)
 * [Scala Steward](#scala-steward-)
-* [Pre/post conditions](#prepost-conditions)
 * [How to trigger spreading?](#how-to-trigger-spreading)
 
 ## Introduction
@@ -27,11 +27,35 @@ The Github Actions workflow can be found in the [`workflows`](https://github.com
 | File                                                                                                        | Copied as...                            | Enabled on...                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |-------------------------------------------------------------------------------------------------------------|-----------------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [ci.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/ci.yml)                           | `.github/workflows/ci.yml`              | Pushes to master and PRs        | Runs `sbt ci-test` on the project. This task should be added to the project as a command alias containing the necessary steps to compile, check formatters, launch tests and upload coverage (if necessary). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L6). Also labels PRs automatically depending on the base branch following [this configuration file](https://github.com/alejandrohdezma/.github/blob/master/workflows/settings/pr-labeler.yml) (also copied to remote repository as `.github/pr-labeler.yml`). Finally merges `scala-steward` PRs that have succeed.                                                                                                                                                                                                                                                                                                                                                                                                 |
-| [docs.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml)                       | `.github/workflows/docs.yml`            | Releases                        | Runs `sbt ci-docs` on the project, runs the changelog generation and pushes a commit with the changes. The `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation (re-generate docs files, publish micro-sites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L7). For the generation of the `CHANGELOG.md` file it will use [this configuration](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml#L45-L68). An example of a generated changelog file can be found [here](https://github.com/alejandrohdezma/sbt-fix/blob/master/CHANGELOG.md). |
+| [docs.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml)                       | `.github/workflows/docs.yml`            | Releases and [`repository_dispatch`](https://help.github.com/en/actions/reference/events-that-trigger-workflows#external-events-repository_dispatch) with `docs` event                        | Runs `sbt ci-docs` on the project, runs the changelog generation and pushes a commit with the changes. The `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation (re-generate docs files, publish micro-sites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L7). For the generation of the `CHANGELOG.md` file it will use [this configuration](https://github.com/alejandrohdezma/.github/blob/master/workflows/docs.yml#L45-L68). An example of a generated changelog file can be found [here](https://github.com/alejandrohdezma/sbt-fix/blob/master/CHANGELOG.md). |
 | [release.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release.yml)                 | `.github/workflows/release.yml`         | Releases and pushes to master   | Creates a release of the project by running `sbt ci-publish`. This task should be added to the project as a command alias containing the necessary steps to do a release. An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/master/build.sbt#L8).                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| [release-drafter.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release-drafter.yml) | `.github/workflows/settings/release-drafter.yml` | Merging pull-requests                | Settings for [Release Drafter](https://github.com/apps/release-drafter). This app drafts your next release notes as pull requests are merged into master. Given current configuration, it creates categories depending on the PRs labels. An example of generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                               |
+| [release-drafter.yml](https://github.com/alejandrohdezma/.github/blob/master/workflows/release-drafter.yml) | `.github/workflows/settings/release-drafter.yml` | Merging pull-requests                | Not exaclty a workflow, but settings for [Release Drafter](https://github.com/apps/release-drafter). This app drafts your next release notes as pull requests are merged into master. Given current configuration, it creates categories depending on the PRs labels. An example of generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                               |
 
-> Some workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
+> All the workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
+
+> All the spreaded workflows allow repositories to add pre/post conditions to their `ci-*` commands. Check the following section for more information about this.
+
+#### Pre/post conditions in workflows
+
+Workflows added by this repository allow executing pre/post conditions before/after `ci-*` commands.
+
+In order to enable them add a yaml file called `actions.yml` to your `.github` folder with the following content:
+
+```yaml
+pre:
+  ci:      echo "Pre-condition for the ci workflow"
+  docs:    echo "Pre-condition for the docs workflow"
+  release: echo "Pre-condition for the release workflow"
+post:
+  ci:      echo "Post-condition for the ci workflow"
+  docs:    echo "Post-condition for the docs workflow"
+  release: echo "Post-condition for the release workflow"
+```
+
+As you can see `pre.ci` will contain the command to execute as a pre-condition in the `ci` workflow (it will be executed before calling `sbt ci-test`). On the other hand `post.release` will contain the command to execute as a post-condition in the `release` workflow (it will be executed after calling `sbt ci-publish`).
+
+> There is no need to add a command for every pre/post condition. You only need to add those that you need. The missing ones will be just ignored (noop).
+
 
 ### Documentation templates
 
@@ -136,27 +160,6 @@ This workflow will launch in two conditions:
     > ```bash
     > export GITHUB_TOKEN="your_github_token"
     > ```
-
-## Pre/post conditions
-
-Workflows added by this repository allow executing pre/post conditions before/after `ci-*` commands.
-
-In order to enable them add a yaml file called `actions.yml` to your `.github` folder with the following content:
-
-```yaml
-pre:
-  ci:      echo "Pre-condition for the ci workflow"
-  docs:    echo "Pre-condition for the docs workflow"
-  release: echo "Pre-condition for the release workflow"
-post:
-  ci:      echo "Post-condition for the ci workflow"
-  docs:    echo "Post-condition for the docs workflow"
-  release: echo "Post-condition for the release workflow"
-```
-
-As you can see `pre.ci` will contain the command to execute as a pre-condition in the `ci` workflow (it will be executed before calling `sbt ci-test`). On the other hand `post.release` will contain the command to execute as a post-condition in the `release` workflow (it will be executed after calling `sbt ci-publish`).
-
-> There is no need to add a command for every pre/post condition. You only need to add those that you need. The missing ones will be just ignored (noop).
 
 ## How to trigger spreading?
 
