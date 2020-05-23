@@ -33,8 +33,6 @@ The Github Actions workflow can be found in the [`workflows`](https://github.com
 
 > All the workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [auto-update](https://github.com/alejandrohdezma/.github/blob/master/.github/workflows/auto-update.yml#L18) workflow.
 
-> All the spreaded workflows allow repositories to add pre/post conditions to their `ci-*` commands. Check the following section for more information about this.
-
 #### Pre/post conditions in workflows
 
 Workflows added by this repository allow executing pre/post conditions before/after `ci-*` commands.
