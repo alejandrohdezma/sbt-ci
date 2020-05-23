@@ -49,14 +49,12 @@ jobs:
         with:
           path: defaults
           ref: ${{ steps.release.outputs.tag_name }}
-      - name: Copy files
-        run: |
-          mkdir -p main/.github/workflows
-          mkdir -p main/docs
-          cp defaults/workflows/*.yml main/.github/workflows
-          cp defaults/workflows/settings/*.yml main/.github
-          cp defaults/documentation/* main/docs
-          cp -a defaults/root-files/. main
+      - run: mkdir -p main/.github/workflows
+      - run: mkdir -p main/docs
+      - run: cp defaults/workflows/*.yml main/.github/workflows
+      - run: cp defaults/workflows/settings/*.yml main/.github
+      - run: cp defaults/documentation/* main/docs
+      - run: cp -a defaults/root-files/. main
       - name: Create stash with changes
         working-directory: main
         run: |
