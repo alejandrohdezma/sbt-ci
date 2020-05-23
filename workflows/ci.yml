@@ -25,8 +25,14 @@ jobs:
         uses: olafurpg/setup-scala@v7
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
+      - name: Setup yq
+        run: sudo snap install yq
+      - name: Run pre-conditions
+        run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" pre.ci)" || true
       - name: Run checks
         run: sbt ci-test
+      - name: Run post-conditions
+        run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" post.ci)" || true
       - name: Automerge Scala Steward PRs
         if: success() && github.event_name == 'pull_request' && contains(github.event.pull_request.body, 'Scala Steward')
         uses: ridedott/merge-me-action@v1.1.36
