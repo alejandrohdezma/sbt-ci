@@ -1,4 +1,4 @@
-name: Auto-update repositories files and secrets
+name: Auto-update repositories files, settings and secrets
 
 on:
   repository_dispatch:
@@ -49,19 +49,12 @@ jobs:
         with:
           path: defaults
           ref: ${{ steps.release.outputs.tag_name }}
-      - name: Copy files
-        run: |
-          mkdir -p main/.github/workflows && cp defaults/workflows/*.yml main/.github/workflows
-          mkdir -p main/.github/workflows && cp defaults/workflows/settings/*.yml main/.github
-          mkdir -p main/docs && cp defaults/documentation/* main/docs
-          cp -a defaults/root-files/. main
-          rm -f main/.github/workflows/changelog.yml
-          rm -f main/.github/workflows/update-labels.yml
-          rm -f main/.github/workflows/pr-labeler.yml
-          rm -f main/.github/workflows/release-drafter.yml
-          rm -f main/.github/workflows/scala-steward.yml
-          rm -f main/.github/labels.yml
-          rm -f main/.mergify.yml
+      - run: mkdir -p main/.github/workflows
+      - run: mkdir -p main/docs
+      - run: cp defaults/workflows/*.yml main/.github/workflows
+      - run: cp defaults/workflows/settings/*.yml main/.github
+      - run: cp defaults/documentation/* main/docs
+      - run: cp -a defaults/root-files/. main
       - name: Create stash with changes
         working-directory: main
         run: |
@@ -70,10 +63,24 @@ jobs:
       - name: Setup Scala
         if: env.NO_CHANGES == null
         uses: olafurpg/setup-scala@v7
+      - name: Setup Ruby
+        if: env.NO_CHANGES == null
+        uses: actions/setup-ruby@v1
+      - name: Setup yq
+        if: env.NO_CHANGES == null
+        run: sudo snap install yq
+      - name: Run pre-conditions
+        if: env.NO_CHANGES == null
+        working-directory: main
+        run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" pre.ci)" || true
       - name: Run checks
         if: env.NO_CHANGES == null
         working-directory: main
         run: sbt ci-test -Dskip.coverage=true || echo "::set-env name=NEEDS_PR::true"
+      - name: Run post-conditions
+        if: env.NO_CHANGES == null
+        working-directory: main
+        run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" post.ci)" || true
       - name: Reset repository to auto-update changes
         if: env.NO_CHANGES == null
         working-directory: main
