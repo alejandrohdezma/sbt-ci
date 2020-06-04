@@ -17,6 +17,7 @@ jobs:
           - alejandrohdezma/sbt-fix
           - alejandrohdezma/sbt-github
           - alejandrohdezma/sbt-mdoc-toc
+          - alejandrohdezma/sbt-modules
           - alejandrohdezma/sbt-remove-test-from-pom
           - alejandrohdezma/sbt-scalafix-defaults
           - alejandrohdezma/sbt-scalafmt-defaults
