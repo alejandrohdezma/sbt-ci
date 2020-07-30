@@ -141,4 +141,4 @@ jobs:
             ^PGP.*
             ^SONATYPE.*
           repositories: ${{ matrix.repo }}
-          github_token: ${{ secrets.SPREAD_SECRETS_GITHUB_TOKEN }}
+          github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
