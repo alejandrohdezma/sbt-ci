@@ -18,6 +18,7 @@ jobs:
         with:
           cmd: yq read .github/workflows/auto-update.yml jobs.update-repo.strategy.matrix.repo > repos.md
       - name: Import GPG key
+        id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v2
         with:
           git_user_signingkey: true
@@ -30,3 +31,5 @@ jobs:
           repos-file: repos.md
           github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           sign-commits: true
+          author-email: ${{ steps.import_gpg.outputs.email }}
+          author-name: ${{ steps.import_gpg.outputs.name }}
