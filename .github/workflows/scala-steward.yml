@@ -1,22 +1,20 @@
-name: Run Scala Steward on the managed repositories
+name: Run Scala Steward on this repository
 
 on:
   schedule:
-    - cron:  '0 5 * * 1,3,5'
-  repository_dispatch:
-    types: [scala-steward]
+    - cron: "0 5 * * 1,3,5"
+  workflow_dispatch:
 
 jobs:
   run-scala-steward:
     name: Run Scala Steward
     runs-on: ubuntu-latest
     steps:
-      - name: Checkouts the project
+      - name: Checkout project
         uses: actions/checkout@v2
-      - name: Create repos.md file
-        uses: mikefarah/yq@3.3.0
         with:
-          cmd: yq read .github/workflows/auto-update.yml jobs.update-repo.strategy.matrix.repo > repos.md
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          ref: master
       - name: Import GPG key
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v2
@@ -28,7 +26,6 @@ jobs:
       - name: Launch Scala Steward
         uses: scala-steward-org/scala-steward-action@v2
         with:
-          repos-file: repos.md
           github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           sign-commits: true
           author-email: ${{ steps.import_gpg.outputs.email }}
