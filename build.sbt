@@ -15,6 +15,7 @@ lazy val documentation = project
 
 lazy val `sbt-ci` = module
   .enablePlugins(SbtPlugin)
+  .settings(scriptedBatchExecution := false)
   .settings(scriptedLaunchOpts += s"-Dplugin.version=${version.value}")
   .settings(Compile / unmanagedResources += file(".gitignore"))
   .settings(Compile / unmanagedResources += file(".gitignore"))
