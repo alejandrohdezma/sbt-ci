@@ -24,8 +24,11 @@ jobs:
         uses: TimonVS/pr-labeler-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Setup Scala
-        uses: olafurpg/setup-scala@v7
+      - name: Setup Coursier
+        uses: laughedelic/coursier-setup@v1
+        with:
+          jvm: adopt:1.8
+      - uses: coursier/cache-action@v5
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
       - name: Setup yq
@@ -34,20 +37,20 @@ jobs:
         run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" pre.ci)" || true
       - name: Run scalafmt on Scala Steward PRs
         if: github.event.pull_request.user.login == 'alejandrohdezma' && contains(github.event.pull_request.body, 'Scala Steward')
-        run: sbt fix || sbt "scalafmtAll; scalafmtSbt" || true
+        run: sbtn fix || sbtn "scalafmtAll; scalafmtSbt" || true
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4.5.1
         with:
           commit_message: Run formatter/linter
       - name: Run generateCiFiles on Scala Steward PRs
         if: github.event.pull_request.user.login == 'alejandrohdezma' && contains(github.event.pull_request.body, 'Scala Steward')
-        run: sbt generateCiFiles
+        run: sbtn generateCiFiles
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4.5.1
         with:
           commit_message: Generate new CI files
       - name: Run checks
-        run: sbt ci-test
+        run: sbtn ci-test
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
       - name: Run post-conditions
