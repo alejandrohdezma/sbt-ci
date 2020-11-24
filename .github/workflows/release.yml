@@ -21,16 +21,18 @@ jobs:
         uses: laughedelic/coursier-setup@v1
         with:
           jvm: adopt:1.8
-      - uses: coursier/cache-action@v5
+      - name: Enable Coursier cache
+        uses: coursier/cache-action@v5
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
       - name: Setup yq
         run: sudo snap install yq
-      - name: Run pre-conditions
-        run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" pre.release)" || true
-      - run: .github/scripts/gpg-setup.sh
+      - name: Setup gpg
+        run: .github/scripts/gpg-setup.sh
         env:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
+      - name: Run pre-conditions
+        run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" pre.release)" || true
       - name: Release new version
         run: sbtn ci-publish
         env:
