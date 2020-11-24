@@ -14,3 +14,4 @@ $ exists .github/workflows/docs.yml
 $ exists .github/workflows/draft-next-release.yml
 $ exists .github/workflows/release.yml
 $ exists .github/workflows/scala-steward.yml
+$ absent .github/workflows/release-drafter.yml

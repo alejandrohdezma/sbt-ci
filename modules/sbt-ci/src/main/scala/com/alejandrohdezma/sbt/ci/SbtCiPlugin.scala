@@ -44,6 +44,9 @@ object SbtCiPlugin extends AutoPlugin {
     generateCiFiles := {
       implicit val logger = streams.value.log
 
+      // Remove deprecated files
+      file(".github/workflows/release-drafter.yml").delete() // scalafix:ok Disable.blocking.io
+
       // Root files
 
       copyResource(from = ".gitignore", to = file(".gitignore"))
