@@ -65,6 +65,10 @@ object SbtCiPlugin extends AutoPlugin {
       copyResource(from = "release-drafter.yml", to = file(".github/release-drafter.yml"))
       copyResource(from = "settings.yml", to = file(".github/settings.yml"))
 
+      // Worklfow scripts
+
+      copyResource(from = "gpg-setup.sh", to = file(".github/scripts/gpg-setup.sh"))
+
       // Workflows
 
       copyResource(from = "ci.yml", to = file(".github/workflows/ci.yml"))

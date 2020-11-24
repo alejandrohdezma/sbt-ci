@@ -28,6 +28,9 @@ jobs:
         run: sudo snap install yq
       - name: Run pre-conditions
         run: test -f .github/actions.yml && eval "$(yq r .github/actions.yml -D "true" pre.release)" || true
+      - run: .github/scripts/gpg-setup.sh
+        env:
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
       - name: Release new version
         run: sbtn ci-publish
         env:
