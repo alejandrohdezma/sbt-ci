@@ -83,7 +83,8 @@ object SbtCiPlugin extends AutoPlugin {
   private def copyResource(from: String, to: File)(implicit logger: Logger) = Try {
     val content = Source.fromResource(from, getClass().getClassLoader()).mkString // scalafix:ok Disable.blocking.io
 
-    if (from.endsWith(".yml")) IO.write(to, ymlHeader + "\n\n" + content)
+    if (from.equalsIgnoreCase("LICENSE.md")) IO.write(to, content)
+    else if (from.endsWith(".yml")) IO.write(to, ymlHeader + "\n\n" + content)
     else if (from.endsWith(".md")) IO.write(to, mdHeader + "\n\n" + content)
     else IO.write(to, ymlHeader + "\n\n" + content)
 
