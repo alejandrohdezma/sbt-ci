@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.1.0](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.0) (2020-11-29)
+
+[Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.0.0...v1.1.0)
+
+🚀 **Features**
+
+- Add workflow for auto-rebasing PRs [\#58](https://github.com/alejandrohdezma/sbt-ci/pull/58) ([alejandrohdezma](https://github.com/alejandrohdezma))
+
+🐛 **Bug Fixes**
+
+- The project should be checked out before spreading settings [\#57](https://github.com/alejandrohdezma/sbt-ci/pull/57) ([alejandrohdezma](https://github.com/alejandrohdezma))
+- Spread settings should not be launched if commit contains "skip ci" [\#56](https://github.com/alejandrohdezma/sbt-ci/pull/56) ([alejandrohdezma](https://github.com/alejandrohdezma))
+
 ## [v1.0.0](https://github.com/alejandrohdezma/sbt-ci/tree/v1.0.0) (2020-11-29)
 
 [Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v0.29.0...v1.0.0)
