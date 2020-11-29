@@ -71,6 +71,7 @@ object SbtCiPlugin extends AutoPlugin {
 
       // Workflows
 
+      copyResource(from = "auto-rebase.yml", to = file(".github/workflows/auto-rebase.yml"))
       copyResource(from = "ci.yml", to = file(".github/workflows/ci.yml"))
       copyResource(from = "docs.yml", to = file(".github/workflows/docs.yml"))
       copyResource(from = "draft-next-release.yml", to = file(".github/workflows/draft-next-release.yml"))
