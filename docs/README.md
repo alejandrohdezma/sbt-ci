@@ -1,23 +1,9 @@
-# Default workflow, documentation and root files for scala libraries
+# @DESCRIPTION@
 
 [![][github-action-badge]][github-action] [![][maven-badge]][maven] [![][steward-badge]][steward]
 
----
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [What files does it generate?](#what-files-does-it-generate)
-  - [Github Actions workflows](#github-actions-workflows)
-    - [Pre/post conditions in workflows](#prepost-conditions-in-workflows)
-  - [Documentation templates](#documentation-templates)
-  - [Root files](#root-files)
-- [How are files generated?](#how-are-files-generated)
-- [What settings spread?](#what-settings-spread)
-- [Secrets](#secrets)
-  - [What secrets spread?](#what-secrets-spread)
-  - [How to spread a new secret?](#how-to-spread-a-new-secret)
-  - [How to trigger secret spreading?](#how-to-trigger-secret-spreading)
+```scala mdoc:toc
+```
 
 ## Introduction
 
@@ -28,7 +14,7 @@ This plugin contains and spreads default Github Actions workflows, documentation
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "0.29.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "@VERSION@")
 ```
 
 ## Usage

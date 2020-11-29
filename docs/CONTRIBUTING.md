@@ -1,7 +1,3 @@
-[comment]: <> (Don't edit this file!)
-[comment]: <> (It is automatically updated after every release of https://github.com/alejandrohdezma/.github)
-[comment]: <> (If you want to suggest a change, please open a PR or issue in that repository)
-
 # Contributing
 
 Discussion around _@NAME@_ happens in the [GitHub issues](https://github.com/@REPO@/issues) and [pull requests](https://github.com/@REPO@/pulls).
@@ -24,8 +20,8 @@ The process is simple:
  3. Implement your contribution
  4. Write tests
  5. Update the documentation
- 6. Submit pull request
+ 6. Submit a pull request
 
-You will be automatically included in the [AUTHORS.md](AUTHORS.md#contributors) file as contributor in the next release.
+You will be automatically included in the [AUTHORS.md](AUTHORS.md#contributors) file as a contributor in the next release.
 
 If you encounter any confusion or frustration during the contribution process, please create a GitHub issue and we'll do our best to improve the process.
