@@ -4,5 +4,6 @@ updates:
     directory: "/"
     labels:
       - "dependency-update"
+      - "autorebase:opt-in"
     schedule:
       interval: "daily"
