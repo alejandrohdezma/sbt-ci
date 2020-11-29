@@ -28,7 +28,7 @@ This plugin contains and spreads default Github Actions workflows, documentation
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "0.29.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "1.0.0")
 ```
 
 ## Usage

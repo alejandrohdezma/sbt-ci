@@ -1,4 +1,4 @@
-.github
+sbt-ci
 
 Copyright (c) 2020 Alejandro Hernández. All rights reserved.
 
