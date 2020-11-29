@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.1.3](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.3) (2020-11-29)
+
+[Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.2...v1.1.3)
+
+🐛 **Bug Fixes**
+
+- We should use ADMIN\_GITHUB\_TOKEN for pushing workflows [\#63](https://github.com/alejandrohdezma/sbt-ci/pull/63) ([alejandrohdezma](https://github.com/alejandrohdezma))
+
 ## [v1.1.2](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.2) (2020-11-29)
 
 [Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.1...v1.1.2)
