@@ -26,6 +26,9 @@ branches:
           - Run "sbt ci-test" on JDK adopt:1.15
 
 labels:
+  - name: autorebase:opt-in
+    color: c0f276
+    description: Apply this label to enable automatic rebasing
   - name: auto-changelog
     color: e01f96
     description: Automatic update of changelog file
