@@ -17,7 +17,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   spread-settings:
     name: Spread repository settings
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && !contains(github.event.head_commit.message, 'skip ci')
     runs-on: ubuntu-latest
     steps:
       - name: Spread settings
