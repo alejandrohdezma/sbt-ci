@@ -103,52 +103,7 @@ Lastly it will add branch protection on the **master** branch requiring:
 - Pull-request branches should be **up-to-date** with **master**.
 - The [ci.yml workflow](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/ci.yml) should pass correctly.
 
-> Admins will be allowed to bypass this protection and merge PRs on any condition.
-
-## Secrets
-
-### What secrets spread?
-
-The following secrets will be spread to every repository:
-
-- `PGP_PASSPHRASE`: The passphrase of the GPG key that will be used to signed artifacts.
-- `PGP_SECRET`: The base64 encoded secret of the GPG key that will be used to signed artifacts.
-- `SONATYPE_PASSWORD`: The password you will use to log into [Sonatype](https://oss.sonatype.org/).
-- `SONATYPE_USERNAME`: The username you will use to log into [Sonatype](https://oss.sonatype.org/).
-- `ADMIN_GITHUB_TOKEN`: A Github token with administrator permissions on the repository. It can be used to automatically merge PRs or other tasks where the default `GITHUB_TOKEN` is not enough.
-
-> Most of these secrets are meant to be used by [sbt-ci-release](https://github.com/olafurpg/sbt-ci-release).
-
-### How to spread a new secret?
-
-1. Add it as you would normally do in any repository through [settings page](https://github.com/alejandrohdezma/sbt-ci/settings/secrets).
-2. Edit [`.github/workflows/sync-secrets.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/sync-secrets.yml) workflow and add the following line:
-
-    ```diff
-    env:
-      PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-      PGP_SECRET: ${{ secrets.PGP_SECRET }}
-      SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-      SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-      ADMIN_GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-    + YOUR_SECRET_NAME: ${{ secrets.YOUR_SECRET_NAME }}
-    ```
-3. Ensure one of the regexes in [`with.secrets`](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/sync-secrets.yml#L136) matches your secret:
-
-    ```diff
-    with:
-      secrets: |
-        ^ADMIN_GITHUB_TOKEN$
-        ^PGP.*
-        ^SONATYPE.*
-    +   ^YOUR_SECRET_NAME$
-    ```
-    
-### How to trigger secret spreading?
-
-Adding a new repository to the [sync-secrets](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/sync-secrets.yml) workflow will automatically trigger a spreading of the latest secrets.
-
-Also, after updating a secret, you can trigger spreading manually in the repository action's page.
+> Admins will be allowed to bypass this protection and merge PRs on any condition.    
 
 [github-action]: https://github.com/alejandrohdezma/sbt-ci/actions
 [github-action-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Falejandrohdezma%2Fsbt-ci%2Fbadge%3Fref%3Dmaster&style=flat
