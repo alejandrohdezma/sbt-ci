@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.1.1](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.1) (2020-11-29)
+
+[Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.0...v1.1.1)
+
+🐛 **Bug Fixes**
+
+- License file should not include header [\#60](https://github.com/alejandrohdezma/sbt-ci/pull/60) ([alejandrohdezma](https://github.com/alejandrohdezma))
+
 ## [v1.1.0](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.0) (2020-11-29)
 
 [Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.0.0...v1.1.0)
@@ -62,6 +70,7 @@
 - Run formatter/linter before running ci-test in Steward PRs and push [\#34](https://github.com/alejandrohdezma/sbt-ci/pull/34) ([alejandrohdezma](https://github.com/alejandrohdezma))
 - Allow triggering `docs` workflow with a `repository\_dispatch` [\#33](https://github.com/alejandrohdezma/sbt-ci/pull/33) ([alejandrohdezma](https://github.com/alejandrohdezma))
 - Allow running pre-post conditions before/after `ci-\*` commands  [\#32](https://github.com/alejandrohdezma/sbt-ci/pull/32) ([alejandrohdezma](https://github.com/alejandrohdezma))
+- Remove Release Drafter workflow \(we'll use the app from now on\) [\#30](https://github.com/alejandrohdezma/sbt-ci/pull/30) ([alejandrohdezma](https://github.com/alejandrohdezma))
 
 ## [v0.24.0](https://github.com/alejandrohdezma/sbt-ci/tree/v0.24.0) (2020-05-20)
 
@@ -70,7 +79,6 @@
 **Merged pull requests:**
 
 - Remove Scala Steward workflow from managed repos [\#31](https://github.com/alejandrohdezma/sbt-ci/pull/31) ([alejandrohdezma](https://github.com/alejandrohdezma))
-- Remove Release Drafter workflow \(we'll use the app from now on\) [\#30](https://github.com/alejandrohdezma/sbt-ci/pull/30) ([alejandrohdezma](https://github.com/alejandrohdezma))
 
 ## [v0.23.0](https://github.com/alejandrohdezma/sbt-ci/tree/v0.23.0) (2020-05-02)
 
