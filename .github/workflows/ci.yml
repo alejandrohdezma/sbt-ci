@@ -72,14 +72,14 @@ jobs:
         if: github.event.pull_request.user.login == 'alejandrohdezma' && contains(github.event.pull_request.body, 'Scala Steward')
         run: sbtn fix || sbtn "scalafmtAll; scalafmtSbt" || true
       - name: Push changes
-        uses: stefanzweifel/git-auto-commit-action@v4.5.1
+        uses: stefanzweifel/git-auto-commit-action@v4.7.2
         with:
           commit_message: Run formatter/linter
       - name: Run generateCiFiles on Scala Steward PRs
         if: github.event.pull_request.user.login == 'alejandrohdezma' && contains(github.event.pull_request.body, 'Scala Steward')
         run: sbtn generateCiFiles
       - name: Push changes
-        uses: stefanzweifel/git-auto-commit-action@v4.5.1
+        uses: stefanzweifel/git-auto-commit-action@v4.7.2
         with:
           commit_message: Generate new CI files
       - name: Run checks

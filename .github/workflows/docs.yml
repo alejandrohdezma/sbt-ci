@@ -73,6 +73,6 @@ jobs:
             }
           }'
       - name: Push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v4.7.2
         with:
           commit_message: "Update documentation, changelog and other files [skip ci]"
