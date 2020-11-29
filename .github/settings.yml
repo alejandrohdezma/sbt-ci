@@ -21,9 +21,9 @@ branches:
       required_status_checks:
         strict: true
         contexts:
-          - test (adopt:1.8)
-          - test (adopt:1.11)
-          - test (adopt:1.15)
+          - Run sbt-ci on JDK adopt:1.8
+          - Run sbt-ci on JDK adopt:1.11
+          - Run sbt-ci on JDK adopt:1.15
 
 labels:
   - name: auto-changelog
