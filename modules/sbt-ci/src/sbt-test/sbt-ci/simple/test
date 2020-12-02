@@ -10,6 +10,7 @@ $ exists .github/pr-labeler.yml
 $ exists .github/release-drafter.yml
 $ exists .github/settings.yml
 $ exists .github/scripts/gpg-setup.sh
+> checkPermissions
 $ exists .github/workflows/auto-rebase.yml
 $ exists .github/workflows/ci.yml
 $ exists .github/workflows/docs.yml

@@ -19,6 +19,7 @@ package com.alejandrohdezma.sbt.ci
 import scala.io.Source
 import scala.util.Try
 
+import sbt.IO.chmod
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
@@ -68,6 +69,7 @@ object SbtCiPlugin extends AutoPlugin {
       // Worklfow scripts
 
       copyResource(from = "gpg-setup.sh", to = file(".github/scripts/gpg-setup.sh"))
+      chmod("rwxr-xr-x", file(".github/scripts/gpg-setup.sh"))
 
       // Workflows
 
