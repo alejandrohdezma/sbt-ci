@@ -67,7 +67,7 @@ jobs:
           GITHUB_LOGIN: alejandrohdezma
           GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
   test:
-    if: ${{ success() }} && contains(github.event.head_commit.message, 'skip ci') && needs.pre-scala-steward.outputs.files_not_changed
+    if: ${{ success() }} && contains(github.event.head_commit.message, 'skip ci') && needs.pre-scala-steward.outputs.files_not_changed == 'true'
     needs: [pre-scala-steward]
     name: Run "sbt ci-test" on JDK ${{ matrix.jdk }}
     runs-on: ubuntu-latest
