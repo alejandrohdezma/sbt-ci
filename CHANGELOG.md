@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.1.4](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.4) (2020-12-02)
+
+[Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.3...v1.1.4)
+
+🐛 **Bug Fixes**
+
+- `.github/scripts/setup-gpg` should have execute permissions [\#67](https://github.com/alejandrohdezma/sbt-ci/pull/67) ([alejandrohdezma](https://github.com/alejandrohdezma))
+
+📈 **Dependency updates**
+
+- Bump ridedott/merge-me-action from v1.8.66 to v1.8.67 [\#66](https://github.com/alejandrohdezma/sbt-ci/pull/66) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ridedott/merge-me-action from v1.8.64 to v1.8.66 [\#65](https://github.com/alejandrohdezma/sbt-ci/pull/65) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ridedott/merge-me-action from v1.8.61 to v1.8.64 [\#64](https://github.com/alejandrohdezma/sbt-ci/pull/64) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.1.3](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.3) (2020-11-29)
 
 [Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.2...v1.1.3)
