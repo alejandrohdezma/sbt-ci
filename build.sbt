@@ -18,7 +18,6 @@ lazy val `sbt-ci` = module
   .settings(scriptedBatchExecution := false)
   .settings(scriptedLaunchOpts += s"-Dplugin.version=${version.value}")
   .settings(Compile / unmanagedResources += file(".gitignore"))
-  .settings(Compile / unmanagedResources += file(".gitignore"))
   .settings(Compile / unmanagedResources += file("docs/AUTHORS.md"))
   .settings(Compile / unmanagedResources += file("docs/CODE_OF_CONDUCT.md"))
   .settings(Compile / unmanagedResources += file("docs/CONTRIBUTING.md"))
