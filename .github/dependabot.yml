@@ -5,4 +5,4 @@ updates:
     labels:
       - "dependency-update"
     schedule:
-      interval: "daily"
+      interval: "weekly"
