@@ -17,9 +17,9 @@
 package com.alejandrohdezma.sbt.ci
 
 import scala.io.Source
-import sbt.IO.chmod
 import scala.util.Try
 
+import sbt.IO.chmod
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
@@ -31,7 +31,7 @@ object SbtCiPlugin extends AutoPlugin {
 
   object autoImport {
 
-    val generateCiFiles =taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin")
+    val generateCiFiles = taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin")
 
   }
 
