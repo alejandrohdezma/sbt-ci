@@ -31,7 +31,7 @@ object SbtCiPlugin extends AutoPlugin {
 
   object autoImport {
 
-    val generateCiFiles =taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin")
+    val generateCiFiles = taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin")
 
   }
 
