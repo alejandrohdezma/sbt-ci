@@ -29,7 +29,11 @@ import sbt.plugins.JvmPlugin
  */
 object SbtCiPlugin extends AutoPlugin {
 
-  object autoImport { val generateCiFiles = taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin") }
+  object autoImport {
+
+    val generateCiFiles = taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin")
+
+  }
 
   import autoImport._
 
