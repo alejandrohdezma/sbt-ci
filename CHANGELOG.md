@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.2.0](https://github.com/alejandrohdezma/sbt-ci/tree/v1.2.0) (2020-12-03)
+
+[Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.4...v1.2.0)
+
+🚀 **Features**
+
+- Simplify CI workflow and fix some checks [\#73](https://github.com/alejandrohdezma/sbt-ci/pull/73) ([alejandrohdezma](https://github.com/alejandrohdezma))
+- Ensure `sbt ci-test` isn't called if files have changed [\#68](https://github.com/alejandrohdezma/sbt-ci/pull/68) ([alejandrohdezma](https://github.com/alejandrohdezma))
+
 ## [v1.1.4](https://github.com/alejandrohdezma/sbt-ci/tree/v1.1.4) (2020-12-02)
 
 [Full Changelog](https://github.com/alejandrohdezma/sbt-ci/compare/v1.1.3...v1.1.4)
