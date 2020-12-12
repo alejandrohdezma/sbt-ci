@@ -3,8 +3,7 @@ name: Update documentation
 on:
   release:
     types: [published]
-  repository_dispatch:
-    types: [docs]
+  workflow_dispatch:
 
 jobs:
   documentation:
