@@ -17,7 +17,7 @@ jobs:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           ref: master
       - name: Fetch tags
-        run: git fetch --tags
+        run: git fetch --prune --unshallow --tags
       - name: Setup Coursier
         uses: laughedelic/coursier-setup@v1
         with:
