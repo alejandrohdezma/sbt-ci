@@ -29,7 +29,6 @@ jobs:
         run: sbt ci-docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOWNLOAD_INFO_FROM_GITHUB: true
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4.7.2
         with:
