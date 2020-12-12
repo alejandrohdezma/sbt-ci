@@ -23,7 +23,7 @@ This plugin generates default Github Actions workflows, documentation templates,
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "1.3.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "1.3.1")
 ```
 
 ## Usage
