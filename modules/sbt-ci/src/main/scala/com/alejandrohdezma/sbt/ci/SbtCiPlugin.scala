@@ -48,6 +48,7 @@ object SbtCiPlugin extends AutoPlugin {
       // Remove deprecated files
       file(".github/workflows/release-drafter.yml").delete() // scalafix:ok Disable.blocking.io
       file(".github/actions.yml").delete()                   // scalafix:ok Disable.blocking.io
+      file("CHANGELOG.md").delete()                          // scalafix:ok Disable.blocking.io
 
       // Root files
 

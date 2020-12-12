@@ -19,3 +19,4 @@ $ exists .github/workflows/release.yml
 $ exists .github/workflows/scala-steward.yml
 $ absent .github/workflows/release-drafter.yml
 $ absent .github/actions.yml
+$ absent CHANGELOG.md
