@@ -9,7 +9,6 @@
 - [Usage](#usage)
 - [What files does it generate?](#what-files-does-it-generate)
   - [Github Actions workflows](#github-actions-workflows)
-    - [Pre/post conditions in workflows](#prepost-conditions-in-workflows)
   - [Documentation templates](#documentation-templates)
   - [Root files](#root-files)
 - [How are files generated?](#how-are-files-generated)
@@ -46,29 +45,7 @@ If any of them need settings, they will live under [`.github`](https://github.co
 | [scala-steward.yml](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/scala-steward.yml)                                        | `.github/workflows/scala-steward.yml`            | By cron and manually          | Runs [Scala Steward](https://github.com/scala-steward-org/scala-steward) periodically on the project (with the current configuration it will launch at 7:00 am (CET) on Monday, Wednesday and Friday).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | [draft-next-release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/draft-next-release.yml)                                    | `.github/workflows/draft-next-release.yml`          | Merging pull-requests         | This workflow drafts your next release notes as pull requests are merged into master. Given the current configuration, it creates categories depending on the PRs labels. An example of a generated release body can be found [here](https://github.com/alejandrohdezma/sbt-github/releases/tag/v0.7.1).                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
-> All the workflows need specific secrets to be enabled in the repository. These secrets will be automatically added to a repository once it is added to the [sync-secrets](https://github.com/alejandrohdezma/sbt-ci/blob/master/.github/workflows/sync-secrets.yml) workflow.
-
-#### Pre/post conditions in workflows
-
-Workflows added by this plugin allow executing pre/post conditions before/after `ci-*` commands.
-
-In order to enable them add a YAML file called `actions.yml` to your `.github` folder with the following content:
-
-```yaml
-pre:
-  ci:      echo "Pre-condition for the ci workflow"
-  docs:    echo "Pre-condition for the docs workflow"
-  release: echo "Pre-condition for the release workflow"
-post:
-  ci:      echo "Post-condition for the ci workflow"
-  docs:    echo "Post-condition for the docs workflow"
-  release: echo "Post-condition for the release workflow"
-```
-
-As you can see `pre.ci` will contain the command to execute as a pre-condition in the `ci` workflow (it will be executed before calling `sbt ci-test`). On the other hand `post.release` will contain the command to execute as a post-condition in the `release` workflow (it will be executed after calling `sbt ci-publish`).
-
-> There is no need to add a command for every pre/post condition. You only need to add those that you need. The missing ones will be just ignored (no-op).
-
+> All the workflows need specific secrets to be enabled in the repository. 
 
 ### Documentation templates
 
