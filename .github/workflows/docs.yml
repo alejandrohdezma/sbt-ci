@@ -23,7 +23,7 @@ jobs:
           jvm: adopt:1.8
           apps: sbt
       - name: Enable Coursier cache
-        uses: coursier/cache-action@v5
+        uses: coursier/cache-action@v6
       - name: Generate documentation
         run: sbt ci-docs
         env:
