@@ -8,7 +8,7 @@
 
 ## Introduction
 
-This plugin generates default Github Actions workflows, documentation templates, configuration files, secrets and repository settings for [@alejandrohdezma](https://github.com/alejandrohdezma)'s Scala libraries repositories.
+This plugin generates default Github Actions workflows, documentation templates and configuration files for [@alejandrohdezma](https://github.com/alejandrohdezma)'s Scala libraries repositories.
 
 ## Installation
 
@@ -61,27 +61,6 @@ These files will be copied to the root directory of the remote project:
 ## How are files generated?
 
 After each release of this plugin Scala Steward will update the plugin version in all the repositories that use it and when the [`ci.yml` workflow](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml) workflow gets launched, it will execute `sbt generateCiFiles` (creating, updating or deleting files handled by the plugin).
-
-## What settings spread?
-
-The following repository settings will be enforced on every repository:
-
-- **Wikis** will be **disabled**.
-- **Branches** will be **deleted after merge** them.
-- The **default branch** will be **main**.
-- **Squash merging** will be **enabled**.
-- **Merge commits** will be **enabled**.
-- **Rebase merging** will be **disabled**.
-
-It will also spread a set of **labels** to be used on issues & pull-requests (detailed [here](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/settings.yml#L26-L74)).
-
-Lastly it will add branch protection on the **main** branch requiring:
-
-- At least **1** pull request review from a code-owner.
-- Pull-request branches should be **up-to-date** with **main**.
-- The [ci.yml workflow](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml) should pass correctly.
-
-> Admins will be allowed to bypass this protection and merge PRs on any condition.
 
 [github-action]: https://github.com/alejandrohdezma/sbt-ci/actions
 [github-action-badge]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Falejandrohdezma%2Fsbt-ci%2Fbadge%3Fref%3Dmain&style=flat

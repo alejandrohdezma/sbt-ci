@@ -49,6 +49,7 @@ object SbtCiPlugin extends AutoPlugin {
       file(".github/workflows/release-drafter.yml").delete() // scalafix:ok Disable.blocking.io
       file(".github/workflows/scala-steward.yml").delete()   // scalafix:ok Disable.blocking.io
       file(".github/actions.yml").delete()                   // scalafix:ok Disable.blocking.io
+      file(".github/settings.yml").delete()                  // scalafix:ok Disable.blocking.io
       file("CHANGELOG.md").delete()                          // scalafix:ok Disable.blocking.io
 
       // Root files
@@ -67,7 +68,6 @@ object SbtCiPlugin extends AutoPlugin {
 
       copyResource(from = "pr-labeler.yml", to = file(".github/pr-labeler.yml"))
       copyResource(from = "release-drafter.yml", to = file(".github/release-drafter.yml"))
-      copyResource(from = "settings.yml", to = file(".github/settings.yml"))
 
       // Worklfow scripts
 
