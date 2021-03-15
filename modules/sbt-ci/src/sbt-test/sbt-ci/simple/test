@@ -8,7 +8,6 @@ $ exists docs/LICENSE.md
 $ exists docs/NOTICE.md
 $ exists .github/pr-labeler.yml
 $ exists .github/release-drafter.yml
-$ exists .github/settings.yml
 $ exists .github/scripts/gpg-setup.sh
 > checkPermissions
 $ exists .github/workflows/auto-rebase.yml
@@ -19,4 +18,5 @@ $ exists .github/workflows/release.yml
 $ absent .github/workflows/scala-steward.yml
 $ absent .github/workflows/release-drafter.yml
 $ absent .github/actions.yml
+$ absent .github/settings.yml
 $ absent CHANGELOG.md
