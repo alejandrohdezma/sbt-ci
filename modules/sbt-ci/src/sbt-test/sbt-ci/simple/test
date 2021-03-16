@@ -6,7 +6,6 @@ $ exists docs/CODE_OF_CONDUCT.md
 $ exists docs/CONTRIBUTING.md
 $ exists docs/LICENSE.md
 $ exists docs/NOTICE.md
-$ exists .github/pr-labeler.yml
 $ exists .github/release-drafter.yml
 $ exists .github/scripts/gpg-setup.sh
 > checkPermissions
@@ -15,6 +14,7 @@ $ exists .github/workflows/ci.yml
 $ exists .github/workflows/docs.yml
 $ exists .github/workflows/draft-next-release.yml
 $ exists .github/workflows/release.yml
+$ absent .github/pr-labeler.yml
 $ absent .github/workflows/scala-steward.yml
 $ absent .github/workflows/release-drafter.yml
 $ absent .github/actions.yml
