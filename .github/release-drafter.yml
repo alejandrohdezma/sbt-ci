@@ -1,34 +1,68 @@
-name-template: "v$NEXT_PATCH_VERSION"
-tag-template: "v$NEXT_PATCH_VERSION"
-exclude-labels:
-  - "auto-update"
-  - "auto-documentation"
-  - "auto-changelog"
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
 categories:
-  - title: "⚠️ Breaking changes"
-    label: "breaking-change"
-  - title: "🚀 Features"
-    label: "enhancement"
-  - title: "📘 Documentation"
-    label: "documentation"
-  - title: "🐛 Bug Fixes"
-    label: "bug"
-  - title: "📈 Dependency updates"
+  - title: '💥 Breaking Changes'
     labels:
-      - "dependency-update"
-      - "scala-steward"
+      - 'breaking-change'
+      - 'breaking-changes'
+      - 'breaking change'
+      - 'breaking changes'
+  - title: '🚀 New Features'
+    labels:
+      - 'feat'
+      - 'feature'
+      - 'enhancement'
+  - title: '🌟 Updates'
+    labels:
+      - 'update'
+      - 'updates'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bug'
+      - 'bugfix'
+      - 'fix'
+  - title: '📖 Documentation'
+    labels:
+      - 'doc'
+      - 'docs'
+      - 'documentation'
+  - title: '🎁 Example App'
+    labels:
+      - 'example'
+      - 'example app'
+      - 'example application'
+      - 'example-app'
+      - 'example-application'
+autolabeler:
+  - label: 'documentation'
+    branch:
+      - '/docs{0,1}\/.+/'
+      - '/documentation\/.+/'
+  - label: 'bugfix'
+    branch:
+      - '/fix\/.+/'
+  - label: 'update'
+    branch:
+      - '/update\/.+/'
+  - label: 'feature'
+    branch:
+      - '/feat\/.+/'
+      - '/feature\/.+/'
+      - '/enhancement\/.+/'
+  - label: 'example'
+    branch:
+      - '/example\/.+/'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
 template: |
-  ## What's changed
-
+  ## What’s Changed
   $CHANGES
-
-  ## Contributors to this release
-
-  $CONTRIBUTORS
-replacers:
-  - search: '/(?:and )?@dependabot-preview(?:\[bot\])?,?/g'
-    replace: ''
-  - search: '/(?:and )?@dependabot(?:\[bot\])?,?/g'
-    replace: ''
-  - search: '/(?:and )?@scala-steward(?:\[bot\])?,?/g'
-    replace: ''
