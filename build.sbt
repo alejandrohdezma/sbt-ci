@@ -23,7 +23,6 @@ lazy val `sbt-ci` = module
   .settings(Compile / unmanagedResources += file("docs/CONTRIBUTING.md"))
   .settings(Compile / unmanagedResources += file("docs/LICENSE.md"))
   .settings(Compile / unmanagedResources += file("docs/NOTICE.md"))
-  .settings(Compile / unmanagedResources += file(".github/pr-labeler.yml"))
   .settings(Compile / unmanagedResources += file(".github/release-drafter.yml"))
   .settings(Compile / unmanagedResources += file(".github/scripts/gpg-setup.sh"))
   .settings(Compile / unmanagedResources += file(".github/workflows/auto-rebase.yml"))
