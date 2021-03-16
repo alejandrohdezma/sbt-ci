@@ -6,15 +6,6 @@ on:
   pull_request:
 
 jobs:
-  label-pr:
-    name: Add labels to PR
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Label PR
-        uses: TimonVS/pr-labeler-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   pre-scala-steward:
     runs-on: ubuntu-latest
     name: Run `sbt fix generateCiFiles` in Scala Steward PRs
