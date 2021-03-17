@@ -66,17 +66,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4.9.2
         with:
           commit_message: Regenerate files with `sbt generateCiFiles fix`
-  post-scala-steward:
-    runs-on: ubuntu-latest
-    name: Auto-merge succesfull Scala Steward PRs
-    needs: [test]
-    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'alejandrohdezma' && contains(github.event.pull_request.body, 'Scala Steward')
-    steps:
-      - name: Automerge Scala Steward PRs
-        uses: ridedott/merge-me-action@v2.2.21
-        with:
-          GITHUB_LOGIN: alejandrohdezma
-          GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
   test:
     needs: [pre-scala-steward]
     if: always() && !contains(github.event.head_commit.message, 'skip ci') && needs.pre-scala-steward.outputs.changes_detected != 'true'

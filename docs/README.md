@@ -44,7 +44,6 @@ It will also do the following, depending on the event:
   + It will update PRs that have the `auto-merge` feature enabled and are out-of-sync with the `main` branch.
 - On `pull_request` events:
   + On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to the same PR.
-  + Once all the tests have passed it will merge Scala Steward PRs that have succeed.
 
 #### [`release.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml)
 
