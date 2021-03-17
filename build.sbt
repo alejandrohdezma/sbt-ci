@@ -27,5 +27,4 @@ lazy val `sbt-ci` = module
   .settings(Compile / unmanagedResources += file(".github/scripts/gpg-setup.sh"))
   .settings(Compile / unmanagedResources += file(".github/workflows/ci.yml"))
   .settings(Compile / unmanagedResources += file(".github/workflows/docs.yml"))
-  .settings(Compile / unmanagedResources += file(".github/workflows/draft-next-release.yml"))
   .settings(Compile / unmanagedResources += file(".github/workflows/release.yml"))

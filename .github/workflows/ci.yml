@@ -6,6 +6,22 @@ on:
   pull_request:
 
 jobs:
+  update_release_draft:
+    name: Drafts/updates the next repository release
+    if: "github.event_name == 'push' && !contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+  label_pr:
+    name: Apply labels to PR based on branch
+    if: "github.event_name == 'pull_request'"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
   update-prs:
     name: Update outdated PRs to latest main
     runs-on: ubuntu-latest
@@ -15,7 +31,7 @@ jobs:
         uses: adRise/update-pr-branch@v0.4.0
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-          base: 'main'
+          base: "main"
           required_approval_count: 1
   pre-scala-steward:
     runs-on: ubuntu-latest
