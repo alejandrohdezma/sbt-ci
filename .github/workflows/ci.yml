@@ -8,7 +8,12 @@ on:
 jobs:
   update_release_draft:
     name: Drafts/updates the next repository release and update PR labels
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+    if: |
+      github.event_name == 'push' ||
+      (
+        github.event_name == 'pull_request' && 
+        github.event.pull_request.head.repo.full_name == github.repository
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Get the GitHub App installation token
@@ -42,7 +47,10 @@ jobs:
   scala-steward:
     runs-on: ubuntu-latest
     name: Run `sbt fix generateCiFiles` in Scala Steward PRs
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.user.login == 'alejandrohdezma-steward[bot]'
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login == 'alejandrohdezma-steward[bot]'
     outputs:
       changes_detected: ${{ steps.push.outputs.changes_detected }}
     steps:
@@ -92,7 +100,10 @@ jobs:
           commit_message: Regenerate files with `sbt generateCiFiles fix`
   test:
     needs: [scala-steward]
-    if: always() && needs.scala-steward.outputs.changes_detected != 'true'
+    if: |
+      always() && 
+      github.event_name == 'pull_request' &&
+      needs.scala-steward.outputs.changes_detected != 'true'
     name: Run "sbt ci-test" on JDK ${{ matrix.jdk }}
     runs-on: ubuntu-latest
     strategy:
