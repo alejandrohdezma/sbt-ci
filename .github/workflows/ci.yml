@@ -33,7 +33,7 @@ jobs:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           base: "main"
           required_approval_count: 1
-  pre-scala-steward:
+  scala-steward:
     runs-on: ubuntu-latest
     name: Run `sbt fix generateCiFiles` in Scala Steward PRs
     if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'alejandrohdezma' && contains(github.event.pull_request.body, 'Scala Steward')
@@ -60,6 +60,10 @@ jobs:
       - name: Add Pull Request Reviewer
         if: steps.check_files.outputs.files_exists == 'true'
         uses: kentaro-m/auto-assign-action@v1.1.2
+      - name: Auto-approve Scala Steward PRs
+        uses: hmarr/auto-approve-action@v2
+        with:
+          github-token: "${{ secrets.ADMIN_GITHUB_TOKEN }}"
       - run: sbt generateCiFiles fix || sbt "generateCiFiles; scalafmtAll; scalafmtSbt" || true
       - name: Push changes
         id: push
@@ -67,8 +71,8 @@ jobs:
         with:
           commit_message: Regenerate files with `sbt generateCiFiles fix`
   test:
-    needs: [pre-scala-steward]
-    if: always() && !contains(github.event.head_commit.message, 'skip ci') && needs.pre-scala-steward.outputs.changes_detected != 'true'
+    needs: [scala-steward]
+    if: always() && !contains(github.event.head_commit.message, 'skip ci') && needs.scala-steward.outputs.changes_detected != 'true'
     name: Run "sbt ci-test" on JDK ${{ matrix.jdk }}
     runs-on: ubuntu-latest
     strategy:
