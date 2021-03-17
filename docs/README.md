@@ -46,21 +46,16 @@ It will also do the following, depending on the event:
   + On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to the same PR.
   + Once all the tests have passed it will merge Scala Steward PRs that have succeed.
 
-#### [`docs.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/docs.yml)
-
-Copied to `.github/workflows/docs.yml`. Runs `sbt ci-docs` on the project and pushes a commit with the changes (the `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation: re-generate docs files, publish websites, update headers...).
-
-It will launch on new releases.
-
-And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L6).
-
 #### [`release.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml)
 
-Copied to `.github/workflows/release.yml`. Creates a release of the project by running `sbt ci-publish` (this task should be added to the project as a command alias containing the necessary steps to do a release).
+Copied to `.github/workflows/release.yml`.
+
+- Creates a release of the project by running `sbt ci-publish` (this task should be added to the project as a command alias containing the necessary steps to do a release). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L7).
+- Runs `sbt ci-docs` on the project and pushes a commit with the changes (the `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation: re-generate docs files, publish websites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L6).
 
 It will launch on new releases as well as pushes to the `main` branch.
 
-An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L7).
+
 
 > All the workflows need specific secrets to be enabled in the repository.
 
