@@ -6,6 +6,17 @@ on:
   pull_request:
 
 jobs:
+  update-prs:
+    name: Update outdated PRs to latest main
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Automatically update PR
+        uses: adRise/update-pr-branch@0.4.0
+        with:
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          base: 'main'
+          required_approval_count: 1
   pre-scala-steward:
     runs-on: ubuntu-latest
     name: Run `sbt fix generateCiFiles` in Scala Steward PRs
