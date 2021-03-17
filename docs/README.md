@@ -35,16 +35,16 @@ Copied to `.github/workflows/ci.yml`. Runs `sbt ci-test` on the project (this ta
 
 It will launch on pushes to the `main` branch as well as `pull_request` events.
 
-An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L5). 
+An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L5).
 
 It will also do the following, depending on the event:
 
 - On `push` events:
-  + It will draft the next release following the configuration in [`release-drafter.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/release-drafter.yml).
-  + It will update PRs that have the `auto-merge` feature enabled and are out-of-sync with the `main` branch.
+  - It will draft the next release following the configuration in [`release-drafter.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/release-drafter.yml).
+  - It will update PRs that have the `auto-merge` feature enabled and are out-of-sync with the `main` branch.
 - On `pull_request` events:
-  + It will automatically approve `Scala Steward` PRs.
-  + On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to the same PR.
+  - It will automatically approve `Scala Steward` PRs.
+  - On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to the same PR.
 
 #### [`release.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml)
 
@@ -53,9 +53,7 @@ Copied to `.github/workflows/release.yml`.
 - Creates a release of the project by running `sbt ci-publish` (this task should be added to the project as a command alias containing the necessary steps to do a release). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L7).
 - Runs `sbt ci-docs` on the project and pushes a commit with the changes (the `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation: re-generate docs files, publish websites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L6).
 
-It will launch on new releases as well as pushes to the `main` branch.
-
-
+It will launch on new releases. Alternatively one can launch it manually using a "workflow dispatch" to create a snapshot release.
 
 > All the workflows need specific secrets to be enabled in the repository.
 
