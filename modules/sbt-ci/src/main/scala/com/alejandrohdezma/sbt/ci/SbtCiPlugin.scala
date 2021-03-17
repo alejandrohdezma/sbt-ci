@@ -46,13 +46,14 @@ object SbtCiPlugin extends AutoPlugin {
       implicit val logger = streams.value.log
 
       // Remove deprecated files
-      file(".github/workflows/release-drafter.yml").delete() // scalafix:ok Disable.blocking.io
-      file(".github/workflows/scala-steward.yml").delete()   // scalafix:ok Disable.blocking.io
-      file(".github/workflows/auto-rebase.yml").delete()     // scalafix:ok Disable.blocking.io
-      file(".github/actions.yml").delete()                   // scalafix:ok Disable.blocking.io
-      file(".github/settings.yml").delete()                  // scalafix:ok Disable.blocking.io
-      file(".github/pr-labeler.yml").delete()                // scalafix:ok Disable.blocking.io
-      file("CHANGELOG.md").delete()                          // scalafix:ok Disable.blocking.io
+      file(".github/workflows/release-drafter.yml").delete()    // scalafix:ok Disable.blocking.io
+      file(".github/workflows/scala-steward.yml").delete()      // scalafix:ok Disable.blocking.io
+      file(".github/workflows/auto-rebase.yml").delete()        // scalafix:ok Disable.blocking.io
+      file(".github/workflows/draft-next-release.yml").delete() // scalafix:ok Disable.blocking.io
+      file(".github/actions.yml").delete()                      // scalafix:ok Disable.blocking.io
+      file(".github/settings.yml").delete()                     // scalafix:ok Disable.blocking.io
+      file(".github/pr-labeler.yml").delete()                   // scalafix:ok Disable.blocking.io
+      file("CHANGELOG.md").delete()                             // scalafix:ok Disable.blocking.io
 
       // Root files
 
@@ -79,7 +80,6 @@ object SbtCiPlugin extends AutoPlugin {
 
       copyResource(from = "ci.yml", to = file(".github/workflows/ci.yml"))
       copyResource(from = "docs.yml", to = file(".github/workflows/docs.yml"))
-      copyResource(from = "draft-next-release.yml", to = file(".github/workflows/draft-next-release.yml"))
       copyResource(from = "release.yml", to = file(".github/workflows/release.yml"))
     }
   )
