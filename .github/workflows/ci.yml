@@ -12,7 +12,7 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - name: Automatically update PR
-        uses: adRise/update-pr-branch@0.4.0
+        uses: adRise/update-pr-branch@v0.4.0
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           base: 'main'
