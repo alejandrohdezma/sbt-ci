@@ -63,9 +63,3 @@ autolabeler:
   - label: "scala-steward"
     branch:
       - '/update\/.+/'
-  - label: "autorebase:opt-in"
-    branch:
-      - '/dep\/.+/'
-      - '/dependency\/.+/'
-      - '/dependency-update\/.+/'
-      - '/update\/.+/'
