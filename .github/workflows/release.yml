@@ -51,10 +51,6 @@ jobs:
           apps: sbt
       - name: Enable Coursier cache
         uses: coursier/cache-action@v6
-      - name: Setup gpg
-        run: .github/scripts/gpg-setup.sh
-        env:
-          PGP_SECRET: ${{ secrets.PGP_SECRET }}
       - name: Release new version
         run: sbt ci-publish
         env:

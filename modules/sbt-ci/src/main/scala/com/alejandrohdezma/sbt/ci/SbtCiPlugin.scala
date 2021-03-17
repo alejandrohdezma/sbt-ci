@@ -19,7 +19,6 @@ package com.alejandrohdezma.sbt.ci
 import scala.io.Source
 import scala.util.Try
 
-import sbt.IO.chmod
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
@@ -55,6 +54,7 @@ object SbtCiPlugin extends AutoPlugin {
       file(".github/settings.yml").delete()                     // scalafix:ok Disable.blocking.io
       file(".github/pr-labeler.yml").delete()                   // scalafix:ok Disable.blocking.io
       file("CHANGELOG.md").delete()                             // scalafix:ok Disable.blocking.io
+      file(".github/scripts/gpg-setup.sh").delete()             // scalafix:ok Disable.blocking.io
 
       // Root files
 
@@ -71,11 +71,6 @@ object SbtCiPlugin extends AutoPlugin {
       // Worklfow settings
 
       copyResource(from = "release-drafter.yml", to = file(".github/release-drafter.yml"))
-
-      // Worklfow scripts
-
-      copyResource(from = "gpg-setup.sh", to = file(".github/scripts/gpg-setup.sh"))
-      chmod("rwxr-xr-x", file(".github/scripts/gpg-setup.sh"))
 
       // Workflows
 

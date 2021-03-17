@@ -7,10 +7,9 @@ $ exists docs/CONTRIBUTING.md
 $ exists docs/LICENSE.md
 $ exists docs/NOTICE.md
 $ exists .github/release-drafter.yml
-$ exists .github/scripts/gpg-setup.sh
-> checkPermissions
 $ exists .github/workflows/ci.yml
 $ exists .github/workflows/release.yml
+$ absent .github/scripts/gpg-setup.sh
 $ absent .github/workflows/docs.yml
 $ absent .github/workflows/draft-next-release.yml
 $ absent .github/workflows/auto-rebase.yml
