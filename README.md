@@ -9,8 +9,8 @@
 - [Usage](#usage)
 - [What files does it generate?](#what-files-does-it-generate)
   - [Github Actions workflows](#github-actions-workflows)
-    - [`ci.yml`](#ciyml)
-    - [`release.yml`](#releaseyml)
+    - [[`ci.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml)](#ciymlhttpsgithubcomalejandrohdezmasbt-ciblobmaingithubworkflowsciyml)
+    - [[`release.yml`](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml)](#releaseymlhttpsgithubcomalejandrohdezmasbt-ciblobmaingithubworkflowsreleaseyml)
   - [Documentation templates](#documentation-templates)
   - [Root files](#root-files)
 - [How are files generated?](#how-are-files-generated)
@@ -24,7 +24,7 @@ This plugin generates default Github Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "1.7.1")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "1.7.2")
 ```
 
 ## Usage
