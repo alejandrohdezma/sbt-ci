@@ -39,7 +39,7 @@ jobs:
           installationId: 15336457
           privateKey: ${{ secrets.SCALA_STEWARD_APP_PRIVATE_KEY }}
       - name: Automatically update PR
-        uses: adRise/update-pr-branch@v0.4.0
+        uses: adRise/update-pr-branch@v0.5.1
         with:
           token: ${{ steps.installation_token.outputs.token }}
           base: "main"
