@@ -64,5 +64,7 @@ autolabeler:
     branch:
       - '/update\/.+/'
   - label: "build"
+    branch:
+      - '/build\/.*/'
     files:
       - "project/**"
