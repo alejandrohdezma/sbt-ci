@@ -81,7 +81,7 @@ jobs:
           files: ".github/auto_assign.yml"
       - name: Add Pull Request Reviewer
         if: steps.check_files.outputs.files_exists == 'true'
-        uses: kentaro-m/auto-assign-action@v1.1.2
+        uses: kentaro-m/auto-assign-action@v1.2.0
         with:
           repo-token: ${{ steps.installation_token.outputs.token }}
       - name: Enable auto-merge for this PR
