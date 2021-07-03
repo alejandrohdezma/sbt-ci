@@ -23,9 +23,7 @@ import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
 
-/**
- * This plugin generates (or updates) a bunch of files common to several projects.
- */
+/** This plugin generates (or updates) a bunch of files common to several projects. */
 object SbtCiPlugin extends AutoPlugin {
 
   object autoImport {
