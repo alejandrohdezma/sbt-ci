@@ -53,7 +53,7 @@ Copied to `.github/workflows/release.yml`.
 - Creates a release of the project by running `sbt ci-publish` (this task should be added to the project as a command alias containing the necessary steps to do a release). An example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L7).
 - Runs `sbt ci-docs` on the project and pushes a commit with the changes (the `ci-docs` task should be added to the project as a command alias containing the necessary steps to update documentation: re-generate docs files, publish websites, update headers...). And example of this alias can be found [here](https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt#L6).
 
-It will launch on new releases. Alternatively one can launch it manually using a "workflow dispatch" to create a snapshot release.
+It will launch on pushed tags. Alternatively one can launch it manually using a "workflow dispatch" to create a snapshot release.
 
 > All the workflows need specific secrets to be enabled in the repository.
 
