@@ -15,7 +15,7 @@ Once the plugin has been installed just execute `sbt generateCiFiles` to automat
 
 ## What files does it generate?
 
-### [docs/AUTHORS.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/AUTHORS.md) (copied as docs/AUTHORS.md)
+### :octocat: [docs/AUTHORS.md](https://github.com/@ORGANIZATION@/@NAME/blob/main/docs/AUTHORS.md) (copied as docs/AUTHORS.md)
 
 Contains both the list of contributors and project collaborators.
 
@@ -24,12 +24,12 @@ Need the `COLLABORATORS` and `CONTRIBUTORS` `mdocVariables`.
 See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.
 
 
-### [docs/CODE_OF_CONDUCT.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/CODE_OF_CONDUCT.md) (copied as docs/CODE_OF_CONDUCT.md)
+### :octocat: [docs/CODE_OF_CONDUCT.md](https://github.com/@ORGANIZATION@/@NAME/blob/main/docs/CODE_OF_CONDUCT.md) (copied as docs/CODE_OF_CONDUCT.md)
 
 Code of conduct for the repository. Links to the Scala Code of Conduct.
 
 
-### [docs/CONTRIBUTING.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/CONTRIBUTING.md) (copied as docs/CONTRIBUTING.md)
+### :octocat: [docs/CONTRIBUTING.md](https://github.com/@ORGANIZATION@/@NAME/blob/main/docs/CONTRIBUTING.md) (copied as docs/CONTRIBUTING.md)
 
 Explains how a user can contribute to the project.
 
@@ -38,12 +38,12 @@ Need the `NAME`, `REPO`, `ORG_NAME` and `ORG_EMAIL` `mdocVariables`.
 See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.
 
 
-### [docs/LICENSE.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/LICENSE.md) (copied as docs/LICENSE.md)
+### :octocat: [docs/LICENSE.md](https://github.com/@ORGANIZATION@/@NAME/blob/main/docs/LICENSE.md) (copied as docs/LICENSE.md)
 
 
 
 
-### [docs/NOTICE.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/NOTICE.md) (copied as docs/NOTICE.md)
+### :octocat: [docs/NOTICE.md](https://github.com/@ORGANIZATION@/@NAME/blob/main/docs/NOTICE.md) (copied as docs/NOTICE.md)
 
 Contains the copyright notices for the organization/owner.
 
@@ -52,12 +52,12 @@ Need the `NAME`, `YEAR_RANGE`, `ORG_NAME` and `LICENSE` `mdocVariables`.
 See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.
 
 
-### [.github/release-drafter.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/release-drafter.yml) (copied as .github/release-drafter.yml)
+### :octocat: [.github/release-drafter.yml](https://github.com/@ORGANIZATION@/@NAME/blob/main/.github/release-drafter.yml) (copied as .github/release-drafter.yml)
 
 
 
 
-### [.github/workflows/ci.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml) (copied as .github/workflows/ci.yml)
+### :octocat: [.github/workflows/ci.yml](https://github.com/@ORGANIZATION@/@NAME/blob/main/.github/workflows/ci.yml) (copied as .github/workflows/ci.yml)
 
 Runs `sbt ci-test` on the project (this task should be added to the project as a command alias containing the 
 necessary steps to compile, check formatters, launch tests, upload coverage...).
@@ -77,7 +77,7 @@ It will also do the following, depending on the event:
     the same PR.
 
 
-### [.github/workflows/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml) (copied as .github/workflows/release.yml)
+### :octocat: [.github/workflows/release.yml](https://github.com/@ORGANIZATION@/@NAME/blob/main/.github/workflows/release.yml) (copied as .github/workflows/release.yml)
 
 This workflow performs two tasks:
 
@@ -94,7 +94,7 @@ This workflow will launch on pushed tags. Alternatively one can launch it manual
 create a snapshot release.
 
 
-### [.gitignore](https://github.com/alejandrohdezma/sbt-ci/blob/main/.gitignore) (copied as .gitignore)
+### :octocat: [.gitignore](https://github.com/@ORGANIZATION@/@NAME/blob/main/.gitignore) (copied as .gitignore)
 
 Default .gitignore for the project.
 

@@ -45,7 +45,7 @@ object DocumentationPlugin extends AutoPlugin {
         case _ => content.takeWhile(_.startsWith("#")).map(_.stripPrefix("# ").stripPrefix("#")).mkString("\n")
       }
 
-      s"### $fileUrl (copied as $copiedAs)\n\n$description\n\n"
+      s"### :octocat: $fileUrl (copied as $copiedAs)\n\n$description\n\n"
     }.mkString("\n")
   )
 
