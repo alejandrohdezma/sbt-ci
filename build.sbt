@@ -23,6 +23,7 @@ lazy val `sbt-ci` = module
   .settings(scriptedLaunchOpts += s"-Dgenerated.files=${generatedResources.value.mkString(",")}")
   .enablePlugins(BuildInfoPlugin)
   .settings(buildInfoKeys += generatedResources)
+  .settings(buildInfoKeys += BuildInfoKey.map(repository) { case (k, v) => k -> v.map(_.name).getOrElse("unknown") })
   .settings(buildInfoPackage := "sbt.ci")
   .enablePlugins(ResourceGeneratorPlugin)
   .settings(resourcesToPropagate += file("docs/AUTHORS.md") -> "docs")

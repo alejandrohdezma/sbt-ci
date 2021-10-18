@@ -73,13 +73,13 @@ object SbtCiPlugin extends AutoPlugin {
   }
 
   private val ymlHeader =
-    """# Don't edit this file!
-      |# It is automatically updated after every release of https://github.com/alejandrohdezma/sbt-ci
-      |# If you want to suggest a change, please open a PR or issue in that repository""".stripMargin
+    s"""# Don't edit this file!
+       |# It is automatically updated after every release of https://github.com/${BuildInfo.repository}
+       |# If you want to suggest a change, please open a PR or issue in that repository""".stripMargin
 
   private val mdHeader =
-    """[comment]: <> (Don't edit this file!)
-      |[comment]: <> (It is automatically updated after every release of https://github.com/alejandrohdezma/sbt-ci)
-      |[comment]: <> (If you want to suggest a change, please open a PR or issue in that repository)""".stripMargin
+    s"""[comment]: <> (Don't edit this file!)
+       |[comment]: <> (It is automatically updated after every release of https://github.com/${BuildInfo.repository})
+       |[comment]: <> (If you want to suggest a change, please open a PR or issue in that repository)""".stripMargin
 
 }
