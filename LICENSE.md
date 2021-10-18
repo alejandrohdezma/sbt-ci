@@ -1,9 +1,3 @@
-[comment]: <> (Default license for the project.)
-[comment]: <> ()
-[comment]: <> (Need the `YEAR_RANGE` and `COPYRIGHT_OWNER` `mdocVariables`.)
-[comment]: <> ()
-[comment]: <> (See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.)
-
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
