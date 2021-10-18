@@ -16,7 +16,11 @@ lazy val documentation = project
 lazy val `sbt-ci` = module
   .enablePlugins(SbtPlugin)
   .settings(scriptedBatchExecution := false)
+  .settings(scriptedBufferLog := false)
   .settings(scriptedLaunchOpts += s"-Dplugin.version=${version.value}")
+  .settings(scriptedLaunchOpts += s"-Dplugin.organization=${organization.value}")
+  .settings(scriptedLaunchOpts += s"-Dplugin.name=${name.value}")
+  .settings(scriptedLaunchOpts += s"-Dgenerated.files=${generatedResources.value.mkString(",")}")
   .enablePlugins(BuildInfoPlugin)
   .settings(buildInfoKeys += generatedResources)
   .settings(buildInfoPackage := "sbt.ci")
