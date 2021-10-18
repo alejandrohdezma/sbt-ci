@@ -1,21 +1,3 @@
 # this test ensures that sbt-ci generates all the files
 > generateCiFiles
-$ exists .gitignore
-$ exists docs/AUTHORS.md
-$ exists docs/CODE_OF_CONDUCT.md
-$ exists docs/CONTRIBUTING.md
-$ exists docs/LICENSE.md
-$ exists docs/NOTICE.md
-$ exists .github/release-drafter.yml
-$ exists .github/workflows/ci.yml
-$ exists .github/workflows/release.yml
-$ absent .github/scripts/gpg-setup.sh
-$ absent .github/workflows/docs.yml
-$ absent .github/workflows/draft-next-release.yml
-$ absent .github/workflows/auto-rebase.yml
-$ absent .github/pr-labeler.yml
-$ absent .github/workflows/scala-steward.yml
-$ absent .github/workflows/release-drafter.yml
-$ absent .github/actions.yml
-$ absent .github/settings.yml
-$ absent CHANGELOG.md
+> checkGeneratedFiles
