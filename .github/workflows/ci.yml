@@ -80,7 +80,7 @@ jobs:
           installationId: 15336457
           privateKey: ${{ secrets.SCALA_STEWARD_APP_PRIVATE_KEY }}
       - name: Checkout project
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           token: ${{ steps.installation_token.outputs.token }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -133,7 +133,7 @@ jobs:
           - adopt:1.15
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
       - name: Enable Coursier cache
         uses: coursier/cache-action@v6
       - name: Setup Coursier
