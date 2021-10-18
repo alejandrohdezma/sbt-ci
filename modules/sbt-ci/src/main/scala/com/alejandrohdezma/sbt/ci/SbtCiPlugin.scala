@@ -21,6 +21,7 @@ import scala.util.Try
 
 import sbt.Keys._
 import sbt._
+import sbt.ci.BuildInfo
 import sbt.plugins.JvmPlugin
 
 /** This plugin generates (or updates) a bunch of files common to several projects. */
@@ -28,7 +29,11 @@ object SbtCiPlugin extends AutoPlugin {
 
   object autoImport {
 
-    val generateCiFiles = taskKey[Unit]("Generates all the files included in the `sbt-ci` plugin")
+    val generateCiFiles = taskKey[Unit](s"Generates all the files included in the `${BuildInfo.name}` plugin")
+
+    val filesToGenerate = taskKey[Seq[String]] {
+      s"List of files to generate. Defaults to ${BuildInfo.generatedResources.mkString(", ")}"
+    }
 
   }
 
@@ -38,58 +43,34 @@ object SbtCiPlugin extends AutoPlugin {
 
   override def trigger = allRequirements
 
+  @SuppressWarnings(Array("scalafix:Disable.blocking.io"))
   override def globalSettings: Seq[Def.Setting[_]] = Seq(
+    filesToGenerate := BuildInfo.generatedResources,
     generateCiFiles := {
-      implicit val logger = streams.value.log
+      filesToGenerate.value.foreach { from =>
+        val to = file(from)
 
-      // Remove deprecated files
-      file(".github/workflows/release-drafter.yml").delete()    // scalafix:ok Disable.blocking.io
-      file(".github/workflows/scala-steward.yml").delete()      // scalafix:ok Disable.blocking.io
-      file(".github/workflows/auto-rebase.yml").delete()        // scalafix:ok Disable.blocking.io
-      file(".github/workflows/draft-next-release.yml").delete() // scalafix:ok Disable.blocking.io
-      file(".github/workflows/docs.yml").delete()               // scalafix:ok Disable.blocking.io
-      file(".github/actions.yml").delete()                      // scalafix:ok Disable.blocking.io
-      file(".github/settings.yml").delete()                     // scalafix:ok Disable.blocking.io
-      file(".github/pr-labeler.yml").delete()                   // scalafix:ok Disable.blocking.io
-      file("CHANGELOG.md").delete()                             // scalafix:ok Disable.blocking.io
-      file(".github/scripts/gpg-setup.sh").delete()             // scalafix:ok Disable.blocking.io
+        Try {
+          val content = stripDescription(to, Source.fromResource(from, getClass().getClassLoader()).mkString)
 
-      // Root files
+          if (to.name.equalsIgnoreCase("LICENSE.md")) IO.write(to, content.drop(1))
+          else if (from.endsWith(".yml")) IO.write(to, ymlHeader + "\n" + content)
+          else if (from.endsWith(".md")) IO.write(to, mdHeader + "\n" + content)
+          else IO.write(to, ymlHeader + "\n" + content)
 
-      copyResource(from = ".gitignore", to = file(".gitignore"))
-
-      // Documentation templates
-
-      copyResource(from = "AUTHORS.md", to = file("docs/AUTHORS.md"))
-      copyResource(from = "CODE_OF_CONDUCT.md", to = file("docs/CODE_OF_CONDUCT.md"))
-      copyResource(from = "CONTRIBUTING.md", to = file("docs/CONTRIBUTING.md"))
-      copyResource(from = "LICENSE.md", to = file("docs/LICENSE.md"))
-      copyResource(from = "NOTICE.md", to = file("docs/NOTICE.md"))
-
-      // Worklfow settings
-
-      copyResource(from = "release-drafter.yml", to = file(".github/release-drafter.yml"))
-
-      // Workflows
-
-      copyResource(from = "ci.yml", to = file(".github/workflows/ci.yml"))
-      copyResource(from = "release.yml", to = file(".github/workflows/release.yml"))
+          streams.value.log.info(s"Generated file $to from `${BuildInfo.name}`")
+        }.recover { case t =>
+          streams.value.log.error(s"Generation of $to failed")
+          streams.value.log.trace(t)
+        }.getOrElse(())
+      }
     }
   )
 
-  private def copyResource(from: String, to: File)(implicit logger: Logger) = Try {
-    val content = Source.fromResource(from, getClass().getClassLoader()).mkString // scalafix:ok Disable.blocking.io
-
-    if (from.equalsIgnoreCase("LICENSE.md")) IO.write(to, content)
-    else if (from.endsWith(".yml")) IO.write(to, ymlHeader + "\n\n" + content)
-    else if (from.endsWith(".md")) IO.write(to, mdHeader + "\n\n" + content)
-    else IO.write(to, ymlHeader + "\n\n" + content)
-
-    logger.info(s"Generated file $to from `sbt-ci`")
-  }.recover { case t =>
-    logger.error(s"Generation of $to failed")
-    logger.trace(t)
-  }.getOrElse(())
+  private def stripDescription(resource: File, content: String) = resource.ext match {
+    case "md" => content.split("\n").dropWhile(_.startsWith("[comment]: <>")).mkString("\n")
+    case _    => content.split("\n").dropWhile(_.startsWith("#")).mkString("\n")
+  }
 
   private val ymlHeader =
     """# Don't edit this file!
