@@ -12,6 +12,8 @@ addCommandAlias("generateCiFiles", "show name")
 lazy val documentation = project
   .enablePlugins(MdocPlugin)
   .settings(mdocOut := file("."))
+  .settings(mdocVariables += "ORGANIZATION" -> organization.value)
+  .settings(resourcesToDocument := (`sbt-ci` / resourcesToPropagate).value)
 
 lazy val `sbt-ci` = module
   .enablePlugins(SbtPlugin)
