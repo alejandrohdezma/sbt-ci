@@ -1,3 +1,9 @@
+[comment]: <> (Explains how a user can contribute to the project.)
+[comment]: <> ()
+[comment]: <> (Need the `NAME`, `REPO`, `ORG_NAME` and `ORG_EMAIL` `mdocVariables`.)
+[comment]: <> ()
+[comment]: <> (See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.)
+
 # Contributing
 
 Discussion around _@NAME@_ happens in the [GitHub issues](https://github.com/@REPO@/issues) and [pull requests](https://github.com/@REPO@/pulls).

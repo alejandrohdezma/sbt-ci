@@ -1,3 +1,9 @@
+[comment]: <> (Contains both the list of contributors and project collaborators.)
+[comment]: <> ()
+[comment]: <> (Need the `COLLABORATORS` and `CONTRIBUTORS` `mdocVariables`.)
+[comment]: <> ()
+[comment]: <> (See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.)
+
 # Authors
 
 ## Maintainers
