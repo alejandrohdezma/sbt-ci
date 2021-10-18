@@ -1,3 +1,5 @@
+[comment]: <> (Code of conduct for the repository. Links to the Scala Code of Conduct.)
+
 # Code of Conduct
 
 We are committed to providing a friendly, safe and welcoming
