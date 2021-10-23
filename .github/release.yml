@@ -1,0 +1,24 @@
+# This file contains the template for the "auto-generated release notes"
+
+changelog:
+  exclude:
+    labels:
+      - ":chart_with_upwards_trend: dependency-update"
+    authors:
+      - alejandrohdezma-steward
+  categories:
+    - title: "⚠️ Breaking changes"
+      labels:
+        - ":warning: breaking"
+    - title: "🚀 New features"
+      labels:
+        - ":rocket: feature"
+    - title: "📘 Documentation updates"
+      labels:
+        - ":blue_book: documentation"
+    - title: "🐛 Bug fixes"
+      labels:
+        - ":beetle: bug"
+    - title: Other Changes
+      labels:
+        - "*"

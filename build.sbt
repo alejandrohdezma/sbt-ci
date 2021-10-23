@@ -34,6 +34,7 @@ lazy val `sbt-ci` = module
   .settings(resourcesToPropagate += file("docs/LICENSE.md") -> "docs")
   .settings(resourcesToPropagate += file("docs/NOTICE.md") -> "docs")
   .settings(resourcesToPropagate += file(".github/pr-labeler.yml") -> ".github")
+  .settings(resourcesToPropagate += file(".github/release.yml") -> ".github")
   .settings(resourcesToPropagate += file(".github/workflows/ci.yml") -> ".github/workflows")
   .settings(resourcesToPropagate += file(".github/workflows/release.yml") -> ".github/workflows")
   .settings(resourcesToPropagate += file(".gitignore") -> "/")
