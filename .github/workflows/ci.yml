@@ -8,7 +8,7 @@
 # It will also do the following, depending on the event:
 #
 # - On `push` events:
-#   - It will update PRs that have the `auto-merge` feature enabled and are out-of-sync with the `main` branch.
+#   - It will update PRs that are out-of-sync with the `main` branch.
 # - On `pull_request` events:
 #   - It will automatically label PRs based on head branch.
 #   - It will automatically approve `Scala Steward` PRs.
@@ -42,8 +42,8 @@ jobs:
         with:
           hasSome: ":beetle: bug,:blue_book: documentation,:chart_with_upwards_trend: dependency-update,:lipstick: style,:package: refactor,:rocket: feature,:test_tube: tests,:warning: breaking,:wrench: build,:broom: cleaning"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-  update-prs:
-    name: Update outdated PRs to latest main
+  auto-update-outdated-prs-to-latest-main:
+    name: Update outdated PRs to latest `main`
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
@@ -54,13 +54,11 @@ jobs:
           appId: 104853
           installationId: 15336457
           privateKey: ${{ secrets.SCALA_STEWARD_APP_PRIVATE_KEY }}
-      - name: Automatically update PR
-        uses: adRise/update-pr-branch@v0.5.1
-        with:
-          token: ${{ steps.installation_token.outputs.token }}
-          base: "main"
-          required_approval_count: 1
-          require_passed_checks: false
+      - name: Update outdated PRs to latest `main`
+        uses: docker://chinthakagodawita/autoupdate-action:v1
+        env:
+          GITHUB_TOKEN: ${{ steps.installation_token.outputs.token }}
+          MERGE_CONFLICT_ACTION: ignore
   scala-steward:
     runs-on: ubuntu-latest
     name: "Process Scala Steward PRs: auto-approves, enable auto-merge..."
