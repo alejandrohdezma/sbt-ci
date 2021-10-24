@@ -47,6 +47,7 @@ object SbtCiPlugin extends AutoPlugin {
   override def globalSettings: Seq[Def.Setting[_]] = Seq(
     filesToGenerate := BuildInfo.generatedResources,
     generateCiFiles := {
+      file(".github/release-drafter.yml").delete()
       filesToGenerate.value.foreach { from =>
         val to = file(from)
 

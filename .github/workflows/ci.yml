@@ -1,6 +1,6 @@
-# Runs `sbt ci-test` on the project (this task should be added to the project as a command alias containing the 
+# Runs `sbt ci-test` on the project (this task should be added to the project as a command alias containing the
 # necessary steps to compile, check formatters, launch tests, upload coverage...).
-# 
+#
 # It will launch on pushes to the `main` branch as well as `pull_request` events.
 #
 # An example of this `ci-test` alias can be found in https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
@@ -8,11 +8,11 @@
 # It will also do the following, depending on the event:
 #
 # - On `push` events:
-#   - It will draft the next release following the configuration in `.github/release-drafter.yml`.
 #   - It will update PRs that have the `auto-merge` feature enabled and are out-of-sync with the `main` branch.
 # - On `pull_request` events:
+#   - It will automatically label PRs based on head branch.
 #   - It will automatically approve `Scala Steward` PRs.
-#   - On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to 
+#   - On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to
 #     the same PR.
 
 name: CI
@@ -23,14 +23,9 @@ on:
   pull_request:
 
 jobs:
-  update_release_draft:
-    name: Drafts/updates the next repository release and update PR labels
-    if: |
-      github.event_name == 'push' ||
-      (
-        github.event_name == 'pull_request' && 
-        github.event.pull_request.head.repo.full_name == github.repository
-      )
+  update_and_check_pr_labels:
+    name: Update and check PR labels
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Get the GitHub App installation token
@@ -40,9 +35,13 @@ jobs:
           appId: 104853
           installationId: 15336457
           privateKey: ${{ secrets.SCALA_STEWARD_APP_PRIVATE_KEY }}
-      - uses: release-drafter/release-drafter@v5
+      - uses: TimonVS/pr-labeler-action@v3
         env:
           GITHUB_TOKEN: ${{ steps.installation_token.outputs.token }}
+      - uses: danielchabr/pr-labels-checker@v3.1
+        with:
+          hasSome: ":beetle: bug,:blue_book: documentation,:chart_with_upwards_trend: dependency-update,:lipstick: style,:package: refactor,:rocket: feature,:test_tube: tests,:warning: breaking,:wrench: build,:broom: cleaning"
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
   update-prs:
     name: Update outdated PRs to latest main
     runs-on: ubuntu-latest
