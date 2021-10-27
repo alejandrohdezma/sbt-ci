@@ -46,6 +46,17 @@ jobs:
     steps:
       - name: Update & check PR labels
         uses: alejandrohdezma/actions/labeler@main
+      - run: >
+          labels=$(gh pr view ${{ github.event.pull_request.html_url }} --json labels --jq 'if .labels == [] then "No labels" else .labels | map(.name) | join(" | ") end') &&
+          curl -X POST ${{ secrets.WEBHOOK }}
+          -H "Content-Type: application/json" 
+          -d '{"text": ":octocat: A new PR in `${{ github.repository }}` by @${{ github.actor }} needs :eyes:
+            ┣ ${{ github.event.pull_request.title }}
+            ┣ :label: | '"$labels"' |
+            ┗ ${{ github.event.pull_request.html_url }}
+          "}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ci-steward:
     if: |
