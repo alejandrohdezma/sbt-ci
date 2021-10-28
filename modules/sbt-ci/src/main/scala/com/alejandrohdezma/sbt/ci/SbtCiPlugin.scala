@@ -49,6 +49,8 @@ object SbtCiPlugin extends AutoPlugin {
     generateCiFiles := {
       file(".github/release-drafter.yml").delete()
       file(".github/pr-labeler.yml").delete()
+      file("docs/NOTICE.md").delete()
+      file("docs/AUTHORS.md").delete()
       filesToGenerate.value.foreach { from =>
         val to = file(from)
 
