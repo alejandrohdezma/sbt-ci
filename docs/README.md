@@ -26,3 +26,7 @@ This project is prepared to be used as a template. For a minimum set of changes 
 - Release the new plugin to Sonatype or another kind of Maven repository.
 
 `README.md` should be auto-updated with the list of new resources once you execute `sbt ci-docs`. You can add some descriptions (as comments at the top of the file) to the propagated resources that will then be added to this file.
+
+## Contributors to this project 
+
+@CONTRIBUTORS_TABLE@
