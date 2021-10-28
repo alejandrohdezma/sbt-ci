@@ -28,7 +28,6 @@ lazy val `sbt-ci` = module
   .settings(buildInfoKeys += BuildInfoKey.map(repository) { case (k, v) => k -> v.map(_.name).getOrElse("unknown") })
   .settings(buildInfoPackage := "sbt.ci")
   .enablePlugins(ResourceGeneratorPlugin)
-  .settings(resourcesToPropagate += file("docs/AUTHORS.md") -> "docs")
   .settings(resourcesToPropagate += file("docs/CODE_OF_CONDUCT.md") -> "docs")
   .settings(resourcesToPropagate += file("docs/CONTRIBUTING.md") -> "docs")
   .settings(resourcesToPropagate += file("docs/LICENSE.md") -> "docs")
