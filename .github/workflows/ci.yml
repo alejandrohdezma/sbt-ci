@@ -85,7 +85,7 @@ jobs:
           message: Run `sbt fix`
 
   test:
-    needs: [ci, ci-steward]
+    needs: [labeler, ci-steward]
     if: always() && !contains(needs.*.result, 'failure') && github.event_name == 'pull_request'
     name: Run "sbt ci-test" on JDK ${{ matrix.jdk }}
     runs-on: ubuntu-latest
