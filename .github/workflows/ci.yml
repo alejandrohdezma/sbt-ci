@@ -39,9 +39,9 @@ jobs:
         with:
           github-token: ${{ steps.github_app.outputs.token }}
 
-  ci:
+  labeler:
     if: github.event_name == 'pull_request'
-    name: Auto-label...
+    name: Labeler
     runs-on: ubuntu-latest
     steps:
       - name: Update & check PR labels
