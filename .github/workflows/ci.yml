@@ -30,7 +30,7 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - name: Get the GitHub App installation token
-        uses: alejandrohdezma/actions/alejandrohdezma-steward-token@v1
+        uses: alejandrohdezma/actions/github-app-token@v1
         id: github_app
         with:
           token: ${{ secrets.GH_APP_TOKEN }}
