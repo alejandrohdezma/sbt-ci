@@ -1,15 +1,15 @@
 # This workflow behaves different depending on the event:
-# 
+#
 # - On `push` events:
 #   - It will update PRs that are out-of-sync with the `main` branch.
 # - On `pull_request` events:
-#   - Runs `sbt ci-test` on the project on differnt JDKs (this task should be added to the project as a command alias 
+#   - Runs `sbt ci-test` on the project on differnt JDKs (this task should be added to the project as a command alias
 #     containing the necessary steps to compile, check formatters, launch tests, upload coverage...).
 #
 # An example of this `ci-test` alias can be found in https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
 #
 # It will also do the following:
-# 
+#
 # - It will automatically label PRs based on head branch.
 # - It will automatically enable auto-merge on `Scala Steward` PRs.
 # - On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to the
@@ -55,13 +55,13 @@ jobs:
     name: (Scala Steward) Enable auto-merge, run `sbt fix`...
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout project
+        uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
+
       - name: Enable auto-merge for this PR
         run: gh pr merge --auto --merge ${{github.event.pull_request.number}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Checkout project
-        uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
 
       - name: Run `sbt generateCiFiles`
         uses: alejandrohdezma/actions/scala@v1
