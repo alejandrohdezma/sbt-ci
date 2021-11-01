@@ -58,10 +58,16 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
 
+      - name: Get the GitHub App installation token
+        uses: alejandrohdezma/actions/github-app-token@v1
+        id: github_app
+        with:
+          token: ${{ secrets.GH_APP_TOKEN }}
+
       - name: Enable auto-merge for this PR
         run: gh pr merge --auto --merge ${{github.event.pull_request.number}}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.github_app.outputs.token }}
 
       - name: Run `sbt generateCiFiles`
         uses: alejandrohdezma/actions/scala@v1
