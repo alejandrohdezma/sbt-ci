@@ -25,12 +25,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
         with:
           fetch-depth: 0
 
       - name: Run `sbt ci-publish`
-        uses: alejandrohdezma/actions/scala@main
+        uses: alejandrohdezma/actions/scala@v1
         with:
           jvm: adopt:1.8
           task: ci-publish
@@ -39,6 +39,7 @@ jobs:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+
   documentation:
     needs: [release]
     if: github.event_name == 'push'
@@ -46,13 +47,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
         with:
           fetch-depth: 0
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
       - name: Run `sbt ci-docs`
-        uses: alejandrohdezma/actions/scala@main
+        uses: alejandrohdezma/actions/scala@v1
         with:
           jvm: adopt:1.8
           task: ci-docs
@@ -61,6 +62,6 @@ jobs:
           GIT_DEPLOY_KEY: ${{ secrets.GIT_DEPLOY_KEY }}
 
       - name: Commit changes by `sbt ci-docs`
-        uses: alejandrohdezma/actions/commit-and-push@main
+        uses: alejandrohdezma/actions/commit-and-push@v1
         with:
           message: Run `sbt ci-docs`
