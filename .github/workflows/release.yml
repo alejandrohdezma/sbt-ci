@@ -16,12 +16,13 @@ name: Release
 
 on:
   push:
-    tags: [v*]
+    # tags: [v*]
   workflow_dispatch:
 
 jobs:
   release:
     name: Release a new version of the artifact
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
@@ -41,7 +42,7 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
 
   documentation:
-    needs: [release]
+    # needs: [release]
     if: github.event_name == 'push'
     name: Updates documentation after latest release
     runs-on: ubuntu-latest
@@ -50,6 +51,7 @@ jobs:
         uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
         with:
           fetch-depth: 0
+          ref: main
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
       - name: Run `sbt ci-docs`
@@ -64,4 +66,5 @@ jobs:
       - name: Commit changes by `sbt ci-docs`
         uses: alejandrohdezma/actions/commit-and-push@v1
         with:
-          message: Run `sbt ci-docs`
+          message: Run `sbt ci-docs` [skip ci]
+          branch: main
