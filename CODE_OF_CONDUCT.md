@@ -1,7 +1,5 @@
 [comment]: <> (Code of conduct for the repository. Links to the Scala Code of Conduct.)
 
-# Code of Conduct
-
 We are committed to providing a friendly, safe and welcoming
 environment for all, regardless of the level of experience, gender, gender
 identity and expression, sexual orientation, disability, personal
@@ -13,8 +11,3 @@ Everyone is expected to follow the
 discussing the project on the available communication channels. If you
 are being harassed, please contact us immediately so that we can
 support you.
-
-## Moderation
-
-For any questions, concerns, or moderation requests please contact a
-[member of the project](AUTHORS.md#maintainers).
