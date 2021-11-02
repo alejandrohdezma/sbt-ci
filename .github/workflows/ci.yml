@@ -41,7 +41,7 @@ jobs:
           github-token: ${{ steps.github_app.outputs.token }}
 
   labeler:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
     name: Labeler
     runs-on: ubuntu-latest
     steps:
@@ -93,7 +93,7 @@ jobs:
 
   test:
     needs: [labeler, ci-steward]
-    if: always() && !contains(needs.*.result, 'failure') && github.event_name == 'pull_request'
+    if: always() && !contains(needs.*.result, 'failure') && github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
     name: Run "sbt ci-test" on JDK ${{ matrix.jdk }}
     runs-on: ubuntu-latest
     strategy:
