@@ -1,0 +1,38 @@
+name: Update GitHub Actions comments on Dependabot PRs
+
+on:
+  pull_request_target:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  update-github-actions-comments:
+    name: Update GitHub Actions comments
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get `alejandrohdezma-steward` token
+        uses: alejandrohdezma/actions/github-app-token@v1
+        id: github_app
+        with:
+          token: ${{ secrets.GH_APP_TOKEN }}
+
+      - name: Checkout project
+        uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
+        with:
+          token: ${{ steps.github_app.outputs.token }}
+          ref: ${{ github.head_ref }}
+
+      - name: Update action comments
+        id: update-github-actions
+        uses: alejandrohdezma/actions/update-github-actions@v1
+
+      - name: Commit new changes
+        uses: alejandrohdezma/actions/commit-and-push@v1
+        with:
+          message: >
+            Update ${{ steps.update-github-actions.outputs.action }}
+            from ${{ steps.update-github-actions.outputs.old-version }}
+            to ${{ steps.update-github-actions.outputs.new-version }}
+            in comments
