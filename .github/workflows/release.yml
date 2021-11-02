@@ -16,13 +16,12 @@ name: Release
 
 on:
   push:
-    # tags: [v*]
+    tags: [v*]
   workflow_dispatch:
 
 jobs:
   release:
     name: Release a new version of the artifact
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
@@ -42,9 +41,9 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
 
   documentation:
-    # needs: [release]
-    if: github.event_name == 'push'
+    needs: [release]
     name: Updates documentation after latest release
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
