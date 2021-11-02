@@ -55,7 +55,7 @@ jobs:
       - name: Run `sbt ci-docs`
         uses: alejandrohdezma/actions/scala@v1
         with:
-          jvm: adopt:1.8
+          jvm: openjdk:1.17
           task: ci-docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
