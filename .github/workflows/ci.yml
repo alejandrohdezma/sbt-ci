@@ -47,8 +47,11 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - name: Update & check PR labels
+      - name: Update PR labels
         uses: alejandrohdezma/actions/labeler@v1
+
+      - name: Check PR labels
+        uses: alejandrohdezma/actions/label-check@v1
 
   ci-steward:
     if: |
