@@ -71,6 +71,7 @@ jobs:
         uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97 # v2.3.5
         with:
           token: ${{ steps.github_app.outputs.token }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Enable auto-merge for this PR
         run: gh pr merge --auto --merge ${{github.event.pull_request.number}}
