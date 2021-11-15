@@ -86,7 +86,7 @@ jobs:
       - name: Commit changes by `sbt generateCiFiles`
         uses: alejandrohdezma/actions/commit-and-push@v1
         with:
-          message: Run `sbt generateCiFiles`
+          message: Run `sbt generateCiFiles` [skip ci]
 
       - name: Run `sbt fix`
         uses: alejandrohdezma/actions/scala@v1
@@ -97,7 +97,7 @@ jobs:
       - name: Commit changes by `sbt fix`
         uses: alejandrohdezma/actions/commit-and-push@v1
         with:
-          message: Run `sbt fix`
+          message: Run `sbt fix` [skip ci]
 
   test:
     needs: [labeler, ci-steward]
