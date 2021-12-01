@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.GH_APP_TOKEN }}
 
       - name: Checkout project
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2.3.5
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2.4.0
         with:
           token: ${{ steps.github_app.outputs.token }}
           ref: ${{ github.head_ref }}
