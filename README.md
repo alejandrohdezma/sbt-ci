@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.4.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.4.1")
 ```
 
 ## Usage
@@ -37,6 +37,11 @@ See https://github.com/alejandrohdezma/sbt-github for information on how to get 
 ### :octocat: [.github/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/release.yml) (copied as .github/release.yml)
 
 This file contains the template for the "auto-generated release notes"
+
+
+### :octocat: [.github/FUNDING.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/FUNDING.yml) (copied as .github/FUNDING.yml)
+
+
 
 
 ### :octocat: [.github/workflows/ci.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml) (copied as .github/workflows/ci.yml)
