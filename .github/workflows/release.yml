@@ -36,7 +36,7 @@ jobs:
       - name: Run `sbt ci-publish`
         uses: alejandrohdezma/actions/scala@v1
         with:
-          jvm: adopt:1.11
+          jvm: liberica:11
           task: ci-publish
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
@@ -60,7 +60,7 @@ jobs:
       - name: Run `sbt ci-docs`
         uses: alejandrohdezma/actions/scala@v1
         with:
-          jvm: openjdk:1.17
+          jvm: liberica:17
           task: ci-docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
