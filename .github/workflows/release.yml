@@ -42,6 +42,7 @@ jobs:
       - name: Run `sbt ci-publish`
         run: sbt ci-publish
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
