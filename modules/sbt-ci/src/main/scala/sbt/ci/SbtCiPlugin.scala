@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.alejandrohdezma.sbt.ci
+package sbt.ci
 
 import scala.io.Source
 import scala.util.Try
 
 import sbt.Keys._
 import sbt._
-import sbt.ci.BuildInfo
 import sbt.plugins.JvmPlugin
 
 /** This plugin generates (or updates) a bunch of files common to several projects. */
