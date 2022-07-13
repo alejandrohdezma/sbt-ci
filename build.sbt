@@ -34,5 +34,6 @@ lazy val `sbt-ci` = module
   .settings(resourcesToPropagate += file(".github/release.yml") -> ".github")
   .settings(resourcesToPropagate += file(".github/FUNDING.yml") -> ".github")
   .settings(resourcesToPropagate += file(".github/workflows/ci.yml") -> ".github/workflows")
+  .settings(resourcesToPropagate += file(".github/workflows/main.yml") -> ".github/workflows")
   .settings(resourcesToPropagate += file(".github/workflows/release.yml") -> ".github/workflows")
   .settings(resourcesToPropagate += file(".gitignore") -> "/")
