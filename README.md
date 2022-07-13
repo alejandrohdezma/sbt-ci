@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.5.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.6.0")
 ```
 
 ## Usage
@@ -46,13 +46,8 @@ This file contains the template for the "auto-generated release notes"
 
 ### :octocat: [.github/workflows/ci.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml) (copied as .github/workflows/ci.yml)
 
-This workflow behaves different depending on the event:
-
-- On `push` events:
-  - It will update PRs that are out-of-sync with the `main` branch.
-- On `pull_request` events:
-  - Runs `sbt ci-test` on the project on differnt JDKs (this task should be added to the project as a command alias
-    containing the necessary steps to compile, check formatters, launch tests, upload coverage...).
+Runs `sbt ci-test` on the project on differnt JDKs (this task should be added to the project as a command alias
+containing the necessary steps to compile, check formatters, launch tests...).
 
 An example of this `ci-test` alias can be found in https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
 
@@ -60,8 +55,12 @@ It will also do the following:
 
 - It will automatically label PRs based on head branch.
 - It will automatically enable auto-merge on `Scala Steward` PRs.
-- On Scala Steward PRs it will launch formatters and this plugin's `generateCiFiles` task and push the results to the
-  same PR.
+- On Scala Steward PRs it will launch formatters and the `generateCiFiles` task and push the results to the same PR.
+
+
+### :octocat: [.github/workflows/main.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/main.yml) (copied as .github/workflows/main.yml)
+
+This workflow will update PRs that are out-of-sync with the `main` branch.
 
 
 ### :octocat: [.github/workflows/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml) (copied as .github/workflows/release.yml)
