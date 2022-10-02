@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.6.2")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.7.0")
 ```
 
 ## Usage
@@ -55,7 +55,6 @@ It will also do the following:
 
 - It will automatically label PRs based on head branch.
 - It will automatically enable auto-merge on `Scala Steward` PRs.
-- On Scala Steward PRs it will launch formatters and the `generateCiFiles` task and push the results to the same PR.
 
 
 ### :octocat: [.github/workflows/main.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/main.yml) (copied as .github/workflows/main.yml)
