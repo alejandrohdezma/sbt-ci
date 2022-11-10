@@ -15,7 +15,14 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
   override def trigger = allRequirements
 
   override def globalSettings = Seq(
-    generateCiFiles := generate((), streams.value.log.info(_))
+    generateCiFiles := {
+      file(".github/FUNDING.yml").delete()
+      file("CODE_OF_CONDUCT.md").delete()
+      file("CONTRIBUTING.md").delete()
+      file("docs/CODE_OF_CONDUCT.md").delete()
+      file("docs/CONTRIBUTING.md").delete()
+      generate((), streams.value.log.info(_))
+    }
   )
 
 }
