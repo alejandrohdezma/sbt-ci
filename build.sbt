@@ -2,7 +2,7 @@ ThisBuild / scalaVersion                  := _root_.scalafix.sbt.BuildInfo.scala
 ThisBuild / organization                  := "com.alejandrohdezma"
 ThisBuild / pluginCrossBuild / sbtVersion := "1.2.8"
 
-addCommandAlias("ci-test", "fix --check; mdoc; scripted")
+addCommandAlias("ci-test", "fix --check; mdoc; publishLocal")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
 addCommandAlias("ci-publish", "github; ci-release")
 
@@ -13,7 +13,7 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
   .settings(mdocOut := file("."))
   .settings(mdocVariables += "ORGANIZATION" -> organization.value)
-  .settings(resourcesToDocument := (`sbt-ci` / resourcesToPropagate).value)
+  .settings(mdocVariables += "PROPAGATED_RESOURCES" -> propagatedResouces.value)
 
 lazy val `sbt-ci` = module
   .enablePlugins(SbtPlugin)
@@ -22,18 +22,25 @@ lazy val `sbt-ci` = module
   .settings(scriptedLaunchOpts += s"-Dplugin.version=${version.value}")
   .settings(scriptedLaunchOpts += s"-Dplugin.organization=${organization.value}")
   .settings(scriptedLaunchOpts += s"-Dplugin.name=${name.value}")
-  .settings(scriptedLaunchOpts += s"-Dgenerated.files=${generatedResources.value.mkString(",")}")
   .enablePlugins(BuildInfoPlugin)
-  .settings(buildInfoKeys += generatedResources)
-  .settings(buildInfoKeys += BuildInfoKey.map(repository) { case (k, v) => k -> v.map(_.name).getOrElse("unknown") })
+  .settings(buildInfoKeys += BuildInfoKey("repo", repository.value.map(_.name)))
   .settings(buildInfoPackage := "sbt.ci")
   .enablePlugins(ResourceGeneratorPlugin)
-  .settings(resourcesToPropagate += file("docs/CODE_OF_CONDUCT.md") -> "docs")
-  .settings(resourcesToPropagate += file("docs/CONTRIBUTING.md") -> "docs")
-  .settings(resourcesToPropagate += file("docs/LICENSE.md") -> "docs")
-  .settings(resourcesToPropagate += file(".github/release.yml") -> ".github")
-  .settings(resourcesToPropagate += file(".github/FUNDING.yml") -> ".github")
-  .settings(resourcesToPropagate += file(".github/workflows/ci.yml") -> ".github/workflows")
-  .settings(resourcesToPropagate += file(".github/workflows/main.yml") -> ".github/workflows")
-  .settings(resourcesToPropagate += file(".github/workflows/release.yml") -> ".github/workflows")
-  .settings(resourcesToPropagate += file(".gitignore") -> "/")
+  .settings(resourcesToPropagate += "docs/CODE_OF_CONDUCT.md" -> "docs/CODE_OF_CONDUCT.md")
+  .settings(resourcesToPropagate += "docs/CONTRIBUTING.md" -> "docs/CONTRIBUTING.md")
+  .settings(resourcesToPropagate += "docs/LICENSE.md" -> "docs/LICENSE.md")
+  .settings(resourcesToPropagate += ".github/release.yml" -> ".github/release.yml")
+  .settings(resourcesToPropagate += ".github/FUNDING.yml" -> ".github/FUNDING.yml")
+  .settings(resourcesToPropagate += ".github/workflows/ci.yml" -> ".github/workflows/ci.yml")
+  .settings(resourcesToPropagate += ".github/workflows/main.yml" -> ".github/workflows/main.yml")
+  .settings(resourcesToPropagate += ".github/workflows/release.yml" -> ".github/workflows/release.yml")
+  .settings(resourcesToPropagate += ".gitignore" -> ".gitignore")
+
+lazy val propagatedResouces = Def.setting {
+  (`sbt-ci` / resourcesToPropagateDocs).value.map { case (resource, destination, description) =>
+    val repo   = repository.value.map(_.name).getOrElse("")
+    val branch = repository.value.map(_.defaultBranch).getOrElse("")
+
+    s"### :octocat: [$resource](https://github.com/$repo/blob/$branch/$resource) (copied as $destination)\n\n$description"
+  }.mkString("", "\n\n", "\n\n")
+}

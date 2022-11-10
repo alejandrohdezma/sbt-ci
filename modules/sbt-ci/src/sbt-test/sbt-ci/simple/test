@@ -1,3 +1,0 @@
-# this test ensures that sbt-ci generates all the files
-> generateCiFiles
-> checkGeneratedFiles
