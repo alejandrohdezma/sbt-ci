@@ -5,44 +5,39 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.7.1")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.8.0")
 ```
 
 ## Usage
 
-Once the plugin has been installed just execute `sbt generateCiFiles` to automatically add all the documentation, workflows and settings files to the project. You just need to ensure the `sbt generateCiFiles` command is added to any of the propagated workflows so for example when Scala Steward is used to update this plugin's version in another project, new changes get propagated.
+Once the plugin has been installed just execute `sbt generateCiFiles` to
+automatically add all the documentation, workflows and settings files to the
+project. You just need to ensure the `sbt generateCiFiles` is executed when
+this plugin gets updated in your repository to bring in new changes. If you use
+[Scala Steward](https://github.com/scala-steward-org/scala-steward)
+to keep your repositories up-to-date it is super easy. Just add the following
+lines to the `.scala-steward.conf` in the root of your repositories:
 
+```conf
+postUpdateHooks = [
+  {
+    command = ["sbt", "generateCiFiles"],
+    commitMessage = "Run `sbt generateCiFiles`",
+    groupId = "com.alejandrohdezma",
+    artifactId = "sbt-ci"
+  }
+]
+```
 
 ## What files does it generate?
 
-### :octocat: [docs/CODE_OF_CONDUCT.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/CODE_OF_CONDUCT.md) (copied as docs/CODE_OF_CONDUCT.md)
-
-Code of conduct for the repository. Links to the Scala Code of Conduct.
-
-
-### :octocat: [docs/CONTRIBUTING.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/CONTRIBUTING.md) (copied as docs/CONTRIBUTING.md)
-
-Explains how a user can contribute to the project.
-
-Need the `NAME`, `REPO`, `ORG_NAME` and `ORG_EMAIL` `mdocVariables`.
-
-See https://github.com/alejandrohdezma/sbt-github for information on how to get this variables.
-
-
 ### :octocat: [docs/LICENSE.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/LICENSE.md) (copied as docs/LICENSE.md)
-
 
 
 
 ### :octocat: [.github/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/release.yml) (copied as .github/release.yml)
 
 This file contains the template for the "auto-generated release notes"
-
-
-### :octocat: [.github/FUNDING.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/FUNDING.yml) (copied as .github/FUNDING.yml)
-
-
-
 
 ### :octocat: [.github/workflows/ci.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/ci.yml) (copied as .github/workflows/ci.yml)
 
@@ -56,11 +51,9 @@ It will also do the following:
 - It will automatically label PRs based on head branch.
 - It will automatically enable auto-merge on `Scala Steward` PRs.
 
-
 ### :octocat: [.github/workflows/main.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/main.yml) (copied as .github/workflows/main.yml)
 
 This workflow will update PRs that are out-of-sync with the `main` branch.
-
 
 ### :octocat: [.github/workflows/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml) (copied as .github/workflows/release.yml)
 
@@ -78,7 +71,6 @@ This workflow performs two tasks:
 This workflow will launch on pushed tags. Alternatively one can launch it manually using a "workflow dispatch" to
 create a snapshot release (this won't trigger the documentation update).
 
-
 ### :octocat: [.gitignore](https://github.com/alejandrohdezma/sbt-ci/blob/main/.gitignore) (copied as .gitignore)
 
 Default .gitignore for the project.
@@ -93,7 +85,7 @@ This project is prepared to be used as a template. For a minimum set of changes 
 - Change the `organization` setting to your own in `build.sbt`.
 - Release the new plugin to Sonatype or another kind of Maven repository.
 
-`README.md` should be auto-updated with the list of new resources once you execute `sbt ci-docs`. You can add some descriptions (as comments at the top of the file) to the propagated resources that will then be added to this file.
+`README.md` should be auto-updated with the list of new resources once you execute `sbt ci-docs`. You can add some descriptions (as comments at the top of the file) to the propagated resources that will then be added to this file. See [sbt-propagate docs](https://github.com/alejandrohdezma/sbt-propagate) for more information about what can be done.
 
 ## Contributors to this project 
 
