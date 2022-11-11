@@ -1,6 +1,6 @@
 # This workflow will update PRs that are out-of-sync with the `main` branch.
 
-name: CI
+name: CI (main)
 
 on:
   push:
