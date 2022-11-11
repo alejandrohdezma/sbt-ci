@@ -25,7 +25,7 @@ This project is prepared to be used as a template. For a minimum set of changes 
 - Change the `organization` setting to your own in `build.sbt`.
 - Release the new plugin to Sonatype or another kind of Maven repository.
 
-`README.md` should be auto-updated with the list of new resources once you execute `sbt ci-docs`. You can add some descriptions (as comments at the top of the file) to the propagated resources that will then be added to this file.
+`README.md` should be auto-updated with the list of new resources once you execute `sbt ci-docs`. You can add some descriptions (as comments at the top of the file) to the propagated resources that will then be added to this file. See [sbt-propagate docs](https://github.com/alejandrohdezma/sbt-propagate) for more information about what can be done.
 
 ## Contributors to this project 
 
