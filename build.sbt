@@ -14,11 +14,6 @@ lazy val documentation = project
 
 lazy val `sbt-ci` = module
   .enablePlugins(SbtPlugin)
-  .settings(scriptedBatchExecution := false)
-  .settings(scriptedBufferLog := false)
-  .settings(scriptedLaunchOpts += s"-Dplugin.version=${version.value}")
-  .settings(scriptedLaunchOpts += s"-Dplugin.organization=${organization.value}")
-  .settings(scriptedLaunchOpts += s"-Dplugin.name=${name.value}")
   .enablePlugins(BuildInfoPlugin)
   .settings(buildInfoKeys += BuildInfoKey("repo", repository.value.map(_.name)))
   .settings(buildInfoPackage := "sbt.ci")
