@@ -10,8 +10,23 @@ addSbtPlugin("@ORGANIZATION@" % "@NAME@" % "@VERSION@")
 
 ## Usage
 
-Once the plugin has been installed just execute `sbt generateCiFiles` to automatically add all the documentation, workflows and settings files to the project. You just need to ensure the `sbt generateCiFiles` command is added to any of the propagated workflows so for example when Scala Steward is used to update this plugin's version in another project, new changes get propagated.
+Once the plugin has been installed just execute `sbt generateCiFiles` to
+automatically add all the documentation, workflows and settings files to the
+project. You just need to ensure the `sbt generateCiFiles` is executed when
+this plugin gets updated in your repository to bring in new changes. If you use
+[Scala Steward](https://github.com/scala-steward-org/scala-steward)
+to keep your repositories up-to-date it is super easy. Just add the following
+lines to the `.scala-steward.conf` in the root of your repositories:
 
+```
+postUpdateHooks = [
+  {
+    command = ["sbt", "generateCiFiles"],
+    commitMessage = "Run `sbt generateCiFiles`",
+    groupId = "com.alejandrohdezma",
+    artifactId = "sbt-ci"
+  }
+]
 
 ## What files does it generate?
 
