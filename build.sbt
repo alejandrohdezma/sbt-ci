@@ -6,9 +6,6 @@ addCommandAlias("ci-test", "fix --check; mdoc; publishLocal")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
 addCommandAlias("ci-publish", "github; ci-release")
 
-//So `generateCiFiles` doesn't fail in its own build
-addCommandAlias("generateCiFiles", "show name")
-
 lazy val documentation = project
   .enablePlugins(MdocPlugin)
   .settings(mdocOut := file("."))
