@@ -29,6 +29,14 @@ postUpdateHooks = [
 ]
 ```
 
+### Excluding files
+
+You can exclude certain files by using the `excludedFiles` setting:
+
+```sbt
+ThisBuild / excludedFiles += "**/*.md"
+```
+
 ## What files does it generate?
 
 @PROPAGATED_RESOURCES@

@@ -16,6 +16,8 @@
 
 package sbt.ci
 
+import java.nio.file._
+
 import sbt.Keys.streams
 import sbt._
 
@@ -24,21 +26,48 @@ import com.alejandrohdezma.resource.generator.ResourceGenerator
 /** This plugin generates (or updates) a bunch of files common to several projects. */
 object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
 
+  object autoImport {
+
+    val excludedFiles = settingKey[List[String]] {
+      "List of glob patterns. Files matching any of the patterns in this list" +
+        " will be excluded from generation"
+    }
+
+  }
+
   val generateCiFiles = taskKey[Unit](s"Generates the following files: ${resources.mkString(", ")}")
 
   override def repository: Option[String] = BuildInfo.repo
 
   override def trigger = allRequirements
 
-  override def globalSettings = Seq(
+  import autoImport._
+
+  override def buildSettings = Seq(
+    excludedFiles := Nil,
     generateCiFiles := {
       file(".github/FUNDING.yml").delete()
       file("CODE_OF_CONDUCT.md").delete()
       file("CONTRIBUTING.md").delete()
       file("docs/CODE_OF_CONDUCT.md").delete()
       file("docs/CONTRIBUTING.md").delete()
-      generate((), streams.value.log.info(_))
+
+      generate(
+        extras = (),
+        excludeFile = globPatterns.value,
+        logger = streams.value.log.info(_)
+      )
     }
   )
+
+  private val globPatterns = Def.setting {
+    val fileSystem = FileSystems.getDefault()
+
+    val matchers = excludedFiles.value
+      .map("glob:" + _)
+      .map(fileSystem.getPathMatcher(_))
+
+    (path: Path, _: String) => matchers.find(_.matches(path)).nonEmpty
+  }
 
 }
