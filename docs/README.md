@@ -18,7 +18,7 @@ this plugin gets updated in your repository to bring in new changes. If you use
 to keep your repositories up-to-date it is super easy. Just add the following
 lines to the `.scala-steward.conf` in the root of your repositories:
 
-```
+```conf
 postUpdateHooks = [
   {
     command = ["sbt", "generateCiFiles"],
@@ -27,6 +27,7 @@ postUpdateHooks = [
     artifactId = "sbt-ci"
   }
 ]
+```
 
 ## What files does it generate?
 
