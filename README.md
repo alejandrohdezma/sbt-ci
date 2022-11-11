@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.8.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.9.0")
 ```
 
 ## Usage
@@ -27,6 +27,14 @@ postUpdateHooks = [
     artifactId = "sbt-ci"
   }
 ]
+```
+
+### Excluding files
+
+You can exclude certain files by using the `excludedFiles` setting:
+
+```sbt
+ThisBuild / excludedFiles += "**/*.md"
 ```
 
 ## What files does it generate?
