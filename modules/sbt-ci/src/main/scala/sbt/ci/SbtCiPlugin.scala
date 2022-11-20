@@ -51,6 +51,10 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
       file("CONTRIBUTING.md").delete()
       file("docs/CODE_OF_CONDUCT.md").delete()
       file("docs/CONTRIBUTING.md").delete()
+      file("docs/NOTICE.md").delete()
+      file("docs/AUTHORS.md").delete()
+      file("NOTICE.md").delete()
+      file("AUTHORS.md").delete()
 
       generate(
         extras = (),
