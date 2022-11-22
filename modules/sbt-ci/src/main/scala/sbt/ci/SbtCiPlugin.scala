@@ -47,6 +47,7 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
     excludedFiles := Nil,
     generateCiFiles := {
       file(".github/FUNDING.yml").delete()
+      file(".github/workflows/main.yml").delete()
       file("CODE_OF_CONDUCT.md").delete()
       file("CONTRIBUTING.md").delete()
       file("docs/CODE_OF_CONDUCT.md").delete()

@@ -21,7 +21,6 @@ lazy val `sbt-ci` = module
   .settings(resourcesToPropagate += "docs/LICENSE.md" -> "docs/LICENSE.md")
   .settings(resourcesToPropagate += ".github/release.yml" -> ".github/release.yml")
   .settings(resourcesToPropagate += ".github/workflows/ci.yml" -> ".github/workflows/ci.yml")
-  .settings(resourcesToPropagate += ".github/workflows/main.yml" -> ".github/workflows/main.yml")
   .settings(resourcesToPropagate += ".github/workflows/release.yml" -> ".github/workflows/release.yml")
   .settings(resourcesToPropagate += ".gitignore" -> ".gitignore")
 
