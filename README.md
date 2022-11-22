@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.10.1")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.11.0")
 ```
 
 ## Usage
@@ -58,10 +58,6 @@ It will also do the following:
 
 - It will automatically label PRs based on head branch.
 - It will automatically enable auto-merge on `Scala Steward` PRs.
-
-### :octocat: [.github/workflows/main.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/main.yml) (copied as .github/workflows/main.yml)
-
-This workflow will update PRs that are out-of-sync with the `main` branch.
 
 ### :octocat: [.github/workflows/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml) (copied as .github/workflows/release.yml)
 
