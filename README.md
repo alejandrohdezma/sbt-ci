@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.12.0")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.13.0")
 ```
 
 ## Usage
@@ -29,6 +29,11 @@ postUpdateHooks = [
 ]
 ```
 
+The library also enables a `DocumentationPlugin` on any project enabling the
+`MdocPlugin`. This plugin adds a bunch of default settings for projects using 
+[mdoc](https://scalameta.org/mdoc/). Specifically it sets so documentation 
+templates are read from `.github/docs` and written to the root directory.
+
 ### Excluding files
 
 You can exclude certain files by using the `excludedFiles` setting:
@@ -39,7 +44,7 @@ ThisBuild / excludedFiles += "**/*.md"
 
 ## What files does it generate?
 
-### :octocat: [docs/LICENSE.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/docs/LICENSE.md) (copied as docs/LICENSE.md)
+### :octocat: [.github/docs/LICENSE.md](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/docs/LICENSE.md) (copied as .github/docs/LICENSE.md)
 
 
 
