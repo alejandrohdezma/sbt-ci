@@ -29,6 +29,11 @@ postUpdateHooks = [
 ]
 ```
 
+The library also enables a `DocumentationPlugin` on any project enabling the
+`MdocPlugin`. This plugin adds a bunch of default settings for projects using 
+[mdoc](https://scalameta.org/mdoc/). Specifically it sets so documentation 
+templates are read from `.github/docs` and written to the root directory.
+
 ### Excluding files
 
 You can exclude certain files by using the `excludedFiles` setting:
