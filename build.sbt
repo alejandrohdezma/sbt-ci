@@ -6,19 +6,22 @@ addCommandAlias("ci-test", "fix --check; mdoc; publishLocal")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
 addCommandAlias("ci-publish", "github; ci-release")
 
+val `sbt-mdoc` = "org.scalameta" % "sbt-mdoc" % "[2.0,)" % Provided // scala-steward:off
+
 lazy val documentation = project
   .enablePlugins(MdocPlugin)
+  .settings(mdocIn := file(".github") / "docs")
   .settings(mdocOut := file("."))
-  .settings(mdocVariables += "ORGANIZATION" -> organization.value)
   .settings(mdocVariables += "PROPAGATED_RESOURCES" -> propagatedResouces.value)
 
 lazy val `sbt-ci` = module
+  .settings(addSbtPlugin(`sbt-mdoc`))
   .enablePlugins(SbtPlugin)
   .enablePlugins(BuildInfoPlugin)
   .settings(buildInfoKeys += BuildInfoKey("repo", repository.value.map(_.name)))
   .settings(buildInfoPackage := "sbt.ci")
   .enablePlugins(ResourceGeneratorPlugin)
-  .settings(resourcesToPropagate += "docs/LICENSE.md" -> "docs/LICENSE.md")
+  .settings(resourcesToPropagate += ".github/docs/LICENSE.md" -> ".github/docs/LICENSE.md")
   .settings(resourcesToPropagate += ".github/release.yml" -> ".github/release.yml")
   .settings(resourcesToPropagate += ".github/workflows/ci.yml" -> ".github/workflows/ci.yml")
   .settings(resourcesToPropagate += ".github/workflows/release.yml" -> ".github/workflows/release.yml")
