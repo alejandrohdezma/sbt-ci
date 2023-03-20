@@ -46,15 +46,7 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
   override def buildSettings = Seq(
     excludedFiles := Nil,
     generateCiFiles := {
-      file("docs/LICENSE.md").delete()
-
-      (file(".github") / "docs").mkdir()
-
-      val readme = Paths.get("docs", "README.md")
-      if (Files.exists(readme)) {
-        Files.copy(readme, Paths.get(".github", "docs", "README.md"))
-        readme.toFile().delete()
-      }
+      Files.move(Paths.get("docs"), Paths.get(".github", "docs"))
 
       generate(
         extras = (),
