@@ -46,8 +46,6 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
   override def buildSettings = Seq(
     excludedFiles := Nil,
     generateCiFiles := {
-      Files.move(Paths.get("docs"), Paths.get(".github", "docs"))
-
       generate(
         extras = (),
         excludeFile = globPatterns.value,
