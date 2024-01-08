@@ -6,7 +6,8 @@
 # It will also do the following:
 #
 # - It will automatically label PRs based on head branch.
-# - It will automatically enable auto-merge on `Scala Steward` PRs.
+# - It will automatically enable auto-merge on `Scala Steward` PRs. You'll need to add a `STEWARD_BOT` repository or
+#   organization variable with the name of your scala-steward bot. See https://docs.github.com/en/actions/learn-github-actions/variables.
 
 name: CI
 
@@ -30,7 +31,7 @@ jobs:
   ci-steward:
     if: |
       github.event.pull_request.state == 'OPEN' && github.event.pull_request.head.repo.full_name == github.repository &&
-        github.event.pull_request.user.login == 'alejandrohdezma-steward[bot]'
+        github.event.pull_request.user.login == vars.STEWARD_BOT
     name: (Scala Steward) Enable auto-merge
     runs-on: ubuntu-latest
     steps:
