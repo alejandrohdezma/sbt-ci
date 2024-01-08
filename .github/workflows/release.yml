@@ -1,13 +1,13 @@
 # This workflow performs two tasks:
 #
 # - Creates a release of the project by running `sbt ci-publish` (this task should be added to the project as a command
-#   alias containing the necessary steps to do a release). An example of the `ci-publish` alias can be found in
-#   https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
+#   alias containing the necessary steps to do a release). Examples of this `ci-publish` alias can be found
+#   [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-publish%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
 #
 # - Runs `sbt ci-docs` on the project and pushes a commit with the changes (the `ci-docs` task should be added to the
 #   project as a command alias containing the necessary steps to update documentation: re-generate docs files,
-#   publish websites, update headers...). An example of the `ci-docs` alias can be found in
-#   https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
+#   publish websites, update headers...). Examples of this `ci-docs` alias can be found
+#   [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-docs%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
 #
 # This workflow will launch on pushed tags. Alternatively one can launch it manually using a "workflow dispatch" to
 # create a snapshot release (this won't trigger the documentation update).

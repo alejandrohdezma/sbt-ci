@@ -1,7 +1,7 @@
 # Runs `sbt ci-test` on the project on differnt JDKs (this task should be added to the project as a command alias
 # containing the necessary steps to compile, check formatters, launch tests...).
 #
-# An example of this `ci-test` alias can be found in https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
+# Examples of this `ci-test` alias can be found [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-test%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
 #
 # It will also do the following:
 #
