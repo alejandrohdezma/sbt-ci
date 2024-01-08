@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.13.5")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "2.13.6")
 ```
 
 ## Usage
@@ -57,25 +57,26 @@ This file contains the template for the "auto-generated release notes"
 Runs `sbt ci-test` on the project on differnt JDKs (this task should be added to the project as a command alias
 containing the necessary steps to compile, check formatters, launch tests...).
 
-An example of this `ci-test` alias can be found in https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
+Examples of this `ci-test` alias can be found [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-test%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
 
 It will also do the following:
 
 - It will automatically label PRs based on head branch.
-- It will automatically enable auto-merge on `Scala Steward` PRs.
+- It will automatically enable auto-merge on `Scala Steward` PRs. You'll need to add a `STEWARD_BOT` repository or
+  organization variable with the name of your scala-steward bot. See https://docs.github.com/en/actions/learn-github-actions/variables.
 
 ### :octocat: [.github/workflows/release.yml](https://github.com/alejandrohdezma/sbt-ci/blob/main/.github/workflows/release.yml) (copied as .github/workflows/release.yml)
 
 This workflow performs two tasks:
 
 - Creates a release of the project by running `sbt ci-publish` (this task should be added to the project as a command
-  alias containing the necessary steps to do a release). An example of the `ci-publish` alias can be found in
-  https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
+  alias containing the necessary steps to do a release). Examples of this `ci-publish` alias can be found
+  [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-publish%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
 
 - Runs `sbt ci-docs` on the project and pushes a commit with the changes (the `ci-docs` task should be added to the
   project as a command alias containing the necessary steps to update documentation: re-generate docs files,
-  publish websites, update headers...). An example of the `ci-docs` alias can be found in
-  https://github.com/alejandrohdezma/sbt-github/blob/main/build.sbt.
+  publish websites, update headers...). Examples of this `ci-docs` alias can be found
+  [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-docs%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
 
 This workflow will launch on pushed tags. Alternatively one can launch it manually using a "workflow dispatch" to
 create a snapshot release (this won't trigger the documentation update).
