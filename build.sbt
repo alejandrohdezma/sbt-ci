@@ -1,10 +1,11 @@
 ThisBuild / scalaVersion                  := _root_.scalafix.sbt.BuildInfo.scala212
 ThisBuild / organization                  := "com.alejandrohdezma"
 ThisBuild / pluginCrossBuild / sbtVersion := "1.2.8"
+ThisBuild / versionPolicyIntention        := Compatibility.BinaryCompatible
 
-addCommandAlias("ci-test", "fix --check; mdoc; publishLocal")
+addCommandAlias("ci-test", "fix --check; versionPolicyCheck; mdoc; publishLocal")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
-addCommandAlias("ci-publish", "github; ci-release")
+addCommandAlias("ci-publish", "versionCheck; github; ci-release")
 
 val `sbt-mdoc` = "org.scalameta" % "sbt-mdoc" % "[2.0,)" % Provided // scala-steward:off
 

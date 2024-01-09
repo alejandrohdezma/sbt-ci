@@ -50,7 +50,7 @@ jobs:
 
   documentation:
     needs: [release]
-    name: Updates documentation after latest release
+    name: Updates documentation and version policy after latest release
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
@@ -78,3 +78,14 @@ jobs:
         with:
           message: Run `sbt ci-docs` [skip ci]
           branch: main
+
+      - name: Reset `versionPolicyIntention`
+        run: sed -i -r 's/Compatibility\.(None|BinaryCompatible)/Compatibility.BinaryAndSourceCompatible/g' build.sbt
+
+      - name: Commit `versionPolicyIntention` reset
+        uses: alejandrohdezma/actions/commit-and-push@v1
+        with:
+          message: Reset `versionPolicyIntention` [skip ci]
+          branch: main
+      
+  
