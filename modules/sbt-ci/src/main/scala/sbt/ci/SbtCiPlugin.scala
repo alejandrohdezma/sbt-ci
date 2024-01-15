@@ -22,6 +22,8 @@ import sbt.Keys.streams
 import sbt._
 
 import com.alejandrohdezma.resource.generator.ResourceGenerator
+import sbtversionpolicy.SbtVersionPolicyPlugin
+import sbtversionpolicy.SbtVersionPolicyPlugin.autoImport.versionPolicyIgnoredInternalDependencyVersions
 
 /** This plugin generates (or updates) a bunch of files common to several projects. */
 object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
@@ -41,6 +43,8 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
 
   override def trigger = allRequirements
 
+  override def requires: Plugins = SbtVersionPolicyPlugin
+
   import autoImport._
 
   override def buildSettings = Seq(
@@ -51,7 +55,8 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
         excludeFile = globPatterns.value,
         logger = streams.value.log.info(_)
       )
-    }
+    },
+    versionPolicyIgnoredInternalDependencyVersions := Some("^\\d+\\.\\d+\\.\\d+\\+\\d+".r)
   )
 
   private val globPatterns = Def.setting {
