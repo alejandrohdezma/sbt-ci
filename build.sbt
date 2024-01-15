@@ -9,6 +9,8 @@ addCommandAlias("ci-publish", "versionCheck; github; ci-release")
 
 val `sbt-mdoc` = "org.scalameta" % "sbt-mdoc" % "[2.0,)" % Provided // scala-steward:off
 
+val `sbt-version-policy` = "ch.epfl.scala" % "sbt-version-policy" % "[3.2,)" % Provided // scala-steward:off
+
 lazy val documentation = project
   .enablePlugins(MdocPlugin)
   .settings(mdocIn := file(".github") / "docs")
@@ -17,6 +19,7 @@ lazy val documentation = project
 
 lazy val `sbt-ci` = module
   .settings(addSbtPlugin(`sbt-mdoc`))
+  .settings(addSbtPlugin(`sbt-version-policy`))
   .enablePlugins(SbtPlugin)
   .enablePlugins(BuildInfoPlugin)
   .settings(buildInfoKeys += BuildInfoKey("repo", repository.value.map(_.name)))
