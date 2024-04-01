@@ -67,9 +67,9 @@ jobs:
           cache: "sbt"
 
       - name: Creates an sbt session
-        run: sbtn update
+        run: sbt --client update
 
-      - run: sbtn "fix --check"
-      - run: sbtn versionPolicyCheck
-      - run: sbtn mdoc
-      - run: sbtn publishLocal
+      - run: sbt --client "fix --check"
+      - run: sbt --client versionPolicyCheck
+      - run: sbt --client mdoc
+      - run: sbt --client publishLocal
