@@ -66,5 +66,10 @@ jobs:
           java-version: ${{ matrix.jdk }}
           cache: "sbt"
 
-      - name: Run `sbt ci-test`
-        run: sbt ci-test
+      - name: Creates an sbt session
+        run: sbtn update
+
+      - run: sbtn "fix --check"
+      - run: sbtn versionPolicyCheck
+      - run: sbtn mdoc
+      - run: sbtn publishLocal
