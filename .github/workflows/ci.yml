@@ -61,11 +61,14 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
-      - uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
+      - name: Run Coursier Cache Action
+        uses: coursier/cache-action@142d2738bd29f0eb9d44610828acb3a19809feab # v6.4.6
+    
+      - name: Run Coursier Setup Action
+        uses: coursier/setup-action@62c1c28a0e03df3de0680172df8b829bd80d07a0 # v1.3.7
         with:
-          distribution: "liberica"
-          java-version: ${{ matrix.jdk }}
-          cache: "sbt"
+          jvm: liberica:${{ matrix.jdk }}
+          apps: sbt
 
       - name: Run `sbt ci-test`
         run: sbt ci-test
