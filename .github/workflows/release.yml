@@ -19,6 +19,9 @@ on:
     tags: [v*]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Release a new version of the artifact
@@ -45,7 +48,7 @@ jobs:
       - name: Run `sbt ci-publish`
         run: sbt ci-publish
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
@@ -62,7 +65,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
-          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Coursier Cache Action
         uses: coursier/cache-action@142d2738bd29f0eb9d44610828acb3a19809feab # v6.4.6
@@ -76,7 +79,7 @@ jobs:
       - name: Run `sbt ci-docs`
         run: sbt ci-docs
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_DEPLOY_KEY: ${{ secrets.GIT_DEPLOY_KEY }}
 
       - name: Commit changes by `sbt ci-docs`
