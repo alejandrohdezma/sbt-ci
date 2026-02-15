@@ -48,7 +48,7 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
   import autoImport._
 
   override def buildSettings = Seq(
-    excludedFiles := Nil,
+    excludedFiles   := Nil,
     generateCiFiles := {
       generate(
         extras = (),
