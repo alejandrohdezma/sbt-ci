@@ -26,13 +26,17 @@ import sbtversionpolicy.SbtVersionPolicyPlugin
 import sbtversionpolicy.SbtVersionPolicyPlugin.autoImport.versionPolicyIgnoredInternalDependencyVersions
 
 /** This plugin generates (or updates) a bunch of files common to several projects. */
-object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
+object SbtCiPlugin extends AutoPlugin with ResourceGenerator[List[(String, String => String)]] {
 
   object autoImport {
 
     val excludedFiles = settingKey[List[String]] {
       "List of glob patterns. Files matching any of the patterns in this list" +
         " will be excluded from generation"
+    }
+
+    val fileTransformers = settingKey[List[(String, String => String)]] {
+      "List of (file path, content transformer) pairs applied to generated files"
     }
 
   }
@@ -45,13 +49,24 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[Unit] {
 
   override def requires: Plugins = SbtVersionPolicyPlugin
 
+  override def resourceTransformers = super.resourceTransformers.and {
+    case ((path, extras), content) if extras.exists(_._1.equalsIgnoreCase(s"$path")) =>
+      val transformed = extras.foldLeft(content) {
+        case (acc, (p, f)) if p.equalsIgnoreCase(s"$path") => f(acc)
+        case (acc, _)                                      => acc
+      }
+
+      path -> extras -> transformed
+  }
+
   import autoImport._
 
   override def buildSettings = Seq(
-    excludedFiles   := Nil,
-    generateCiFiles := {
+    excludedFiles    := Nil,
+    fileTransformers := Nil,
+    generateCiFiles  := {
       generate(
-        extras = (),
+        extras = fileTransformers.value,
         excludeFile = globPatterns.value,
         logger = streams.value.log.info(_)
       )
