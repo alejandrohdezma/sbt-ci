@@ -64,7 +64,7 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[List[(String, Strin
   override def buildSettings = Seq(
     excludedFiles    := Nil,
     fileTransformers := Nil,
-    generateCiFiles := {
+    generateCiFiles  := {
       generate(
         extras = fileTransformers.value,
         excludeFile = globPatterns.value,
