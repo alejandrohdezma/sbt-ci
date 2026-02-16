@@ -42,6 +42,18 @@ You can exclude certain files by using the `excludedFiles` setting:
 ThisBuild / excludedFiles += "**/*.md"
 ```
 
+### Transforming generated files
+
+You can transform the content of any generated file using the `fileTransformers` setting.
+This is useful when you need to add project-specific entries (e.g., to `.gitignore`)
+that should not be overwritten when `generateCiFiles` runs:
+
+```sbt
+ThisBuild / fileTransformers += ".gitignore" -> { content =>
+  content + "\nmy-custom-dir/\n*.local\nsecrets/\n"
+}
+```
+
 ## What files does it generate?
 
 @PROPAGATED_RESOURCES@
