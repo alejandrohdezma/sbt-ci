@@ -74,7 +74,7 @@ jobs:
         uses: coursier/cache-action@bebeeb0e6f48ebad66d3783946588ecf43114433 # v6.4.7
 
       - name: Run Coursier Setup Action
-        uses: coursier/setup-action@f7be3eb3dcef84a4e16fc8cd75c87beb2e5cbcc9 # v2.0.2
+        uses: coursier/setup-action@7acb5c9ea69bc1a1bb185ec45ebce2ac114f3628 # v2.0.3
         with:
           jvm: liberica:${{ matrix.jdk }}
           apps: sbt
