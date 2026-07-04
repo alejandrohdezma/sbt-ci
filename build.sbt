@@ -1,6 +1,6 @@
 ThisBuild / scalaVersion           := _root_.scalafix.sbt.BuildInfo.scala212
 ThisBuild / organization           := "com.alejandrohdezma"
-ThisBuild / versionPolicyIntention := Compatibility.None
+ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 
 addCommandAlias("ci-test", "fix --check; +versionPolicyCheck; +publishLocal; mdoc")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
