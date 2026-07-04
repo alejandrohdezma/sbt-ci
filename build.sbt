@@ -1,9 +1,8 @@
-ThisBuild / scalaVersion                  := _root_.scalafix.sbt.BuildInfo.scala212
-ThisBuild / organization                  := "com.alejandrohdezma"
-ThisBuild / pluginCrossBuild / sbtVersion := "1.2.8"
-ThisBuild / versionPolicyIntention        := Compatibility.BinaryAndSourceCompatible
+ThisBuild / scalaVersion           := _root_.scalafix.sbt.BuildInfo.scala212
+ThisBuild / organization           := "com.alejandrohdezma"
+ThisBuild / versionPolicyIntention := Compatibility.BinaryAndSourceCompatible
 
-addCommandAlias("ci-test", "fix --check; versionPolicyCheck; mdoc; publishLocal")
+addCommandAlias("ci-test", "fix --check; +versionPolicyCheck; +publishLocal; mdoc")
 addCommandAlias("ci-docs", "github; mdoc; headerCreateAll")
 addCommandAlias("ci-publish", "versionCheck; github; ci-release")
 
@@ -21,6 +20,8 @@ lazy val `sbt-ci` = module
   .settings(addSbtPlugin(`sbt-mdoc`))
   .settings(addSbtPlugin(`sbt-version-policy`))
   .enablePlugins(SbtPlugin)
+  .settings(crossScalaVersions := Seq(scalaVersion.value, "3.8.4"))
+  .settings(pluginCrossBuild / sbtVersion := scalaVersion.value.on(2)("1.2.8").getOrElse("2.0.0"))
   .enablePlugins(BuildInfoPlugin)
   .settings(buildInfoKeys += BuildInfoKey("repo", repository.value.map(_.name)))
   .settings(buildInfoPackage := "sbt.ci")
