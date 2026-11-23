@@ -40,7 +40,7 @@ jobs:
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v6.4.8.1.1
 
       - name: Run Coursier Setup Action
-        uses: coursier/setup-action@9b7939bf01fd1185ce2babe16135168361bf2c62 # v3.0.2
+        uses: coursier/setup-action@6eefb29fad2c9de9f52a5f2cef1154195c9d4609 # v3.1.1
         with:
           jvm: liberica:17
           apps: sbt
@@ -71,7 +71,7 @@ jobs:
         uses: coursier/cache-action@95e5b1029b6b86e7bac033ee44a0697d8a527d2d # v6.4.8.1.1
 
       - name: Run Coursier Setup Action
-        uses: coursier/setup-action@9b7939bf01fd1185ce2babe16135168361bf2c62 # v3.0.2
+        uses: coursier/setup-action@6eefb29fad2c9de9f52a5f2cef1154195c9d4609 # v3.1.1
         with:
           jvm: liberica:17
           apps: sbt
