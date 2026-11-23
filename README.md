@@ -5,7 +5,7 @@ This plugin generates default GitHub Actions workflows, documentation templates 
 Add the following line to your `plugins.sbt` file:
 
 ```sbt
-addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "5.0.1")
+addSbtPlugin("com.alejandrohdezma" % "sbt-ci" % "5.1.0")
 ```
 
 ## Usage
@@ -89,6 +89,9 @@ This workflow performs two tasks:
   project as a command alias containing the necessary steps to update documentation: re-generate docs files,
   publish websites, update headers...). Examples of this `ci-docs` alias can be found
   [here](https://github.com/search?q=org%3Aalejandrohdezma+%22ci-docs%22+path%3Abuild.sbt++NOT+is%3Aarchived&type=code).
+
+- If `sbt ci-docs` writes a website to `public/` (`public/index.html` exists), deploys it to GitHub Pages. The
+  repository's Pages source must be set to "GitHub Actions".
 
 This workflow will launch on pushed tags. Alternatively one can launch it manually using a "workflow dispatch" to
 create a snapshot release (this won't trigger the documentation update).
