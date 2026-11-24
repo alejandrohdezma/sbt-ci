@@ -18,11 +18,12 @@ package sbt.ci
 
 import java.nio.file._
 
-import sbt.Keys.streams
+import sbt.Keys._
 import sbt._
 
 import com.alejandrohdezma.resource.generator.ResourceGenerator
 import sbtversionpolicy.SbtVersionPolicyPlugin
+import sbtversionpolicy.SbtVersionPolicyPlugin.autoImport.versionPolicyIgnored
 import sbtversionpolicy.SbtVersionPolicyPlugin.autoImport.versionPolicyIgnoredInternalDependencyVersions
 
 /** This plugin generates (or updates) a bunch of files common to several projects. */
@@ -72,6 +73,18 @@ object SbtCiPlugin extends AutoPlugin with ResourceGenerator[List[(String, Strin
       )
     },
     versionPolicyIgnoredInternalDependencyVersions := Some("^\\d+\\.\\d+\\.\\d+\\+\\d+".r)
+  )
+
+  override def projectSettings: Seq[Setting[?]] = Seq(
+    versionPolicyIgnored ++= {
+      val sbtBinary = (pluginCrossBuild / sbtBinaryVersion).value
+      val snapshot  =
+        versionPolicyIgnoredInternalDependencyVersions.value.exists(_.findFirstMatchIn(version.value).nonEmpty)
+      val names = moduleName.all(ScopeFilter(inAnyProject)).value
+
+      if (sbtBinary.startsWith("1.") || !snapshot) Nil
+      else names.map(name => organization.value % s"${name}_sbt${sbtBinary}_${scalaBinaryVersion.value}")
+    }
   )
 
   private val globPatterns = Def.setting {
